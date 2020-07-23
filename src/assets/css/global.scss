@@ -12,3 +12,12 @@ body,
   width: 100%;
   height: 100%;
 }
+
+.main-content {
+  width: 100%;
+  height: calc(100% - 80px);
+}
+
+.main-content.with-header {
+  height: calc(100% - 150px);
+}
