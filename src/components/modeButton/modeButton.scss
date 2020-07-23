@@ -1,0 +1,40 @@
+@import "../../assets/css/themes";
+
+.mode-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    width: 110px;
+    height: 100%;
+    max-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .toggle-button {
+        cursor: pointer;
+        width: 60px;
+        height: 30px;
+        border-radius: 35px;
+        margin-right: 20px;
+        padding: 5px;
+
+        @include themify($themes-color) {
+            background-color: themed("secondary-color");
+        }
+
+        .inner-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            transition: all 100ms ease-in-out;
+        }
+
+        .inner-circle.active {
+            margin-left: 30px;
+            transition: all 100ms ease-in-out;
+        }
+    }
+}
