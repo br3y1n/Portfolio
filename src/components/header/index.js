@@ -12,6 +12,7 @@ const Header = props => {
                         itemTarget
                         itemName
                         itemMethod
+                        position
                     }
                 }
             }
@@ -22,6 +23,7 @@ const Header = props => {
                         itemTarget
                         itemName
                         itemMethod
+                        position
                     }
                 }
             }
@@ -57,26 +59,22 @@ const Header = props => {
         _evaluateLink = link => {
             const
                 { id, itemName, itemTarget, itemMethod } = link.node,
-                findFile = target => {
-
-                    return downloads.filter(file => {
-                        return file.node.target === target
-                    })[0]
-                }
+                findFile = target => downloads.filter(file => file.node.target === target)[0]
 
             switch (itemMethod) {
                 case 'download':
                     const file = findFile(itemTarget)
-                    console.log(file)
                     return file
                         ? <a key={id} href={file.node.file.localFile.publicURL} download={file.node.fileName}>{itemName}</a>
                         : undefined
 
                 case 'goPage':
                 default:
-                    return <Link to={`/${itemTarget}`} key={id}>{itemName}</Link>
+                    return <Link to={`/${itemTarget}`} key={id} className={itemTarget === props.target ? 'active' : ''}>{itemName}</Link>
             }
         }
+
+    itemsMenu.sort((itemA, itemB) => itemA.node.position - itemB.node.position)
 
     return (
         <header>

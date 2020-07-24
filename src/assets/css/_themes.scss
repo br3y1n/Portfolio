@@ -7,13 +7,19 @@ $themes-color: (
     background-color: white,
     primary-color: #e3e4e5,
     secondary-color: #b4b4b4,
-    tertiary-color: #616161
+    tertiary-color: #616161,
+    quaternary-color: #b4b4b4,
+    terminal-border: #b4b4b469,
+    terminal-content: #61616146
   ),
   dark: (
     background-color: #262626,
     primary-color: #454545,
     secondary-color: #262626,
-    tertiary-color: #b4b4b4
+    tertiary-color: #b4b4b4,
+    quaternary-color: #797979,
+    terminal-border: #454545a9,
+    terminal-content: #26262681
   ),
 );
 

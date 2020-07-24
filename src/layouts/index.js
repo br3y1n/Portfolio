@@ -27,15 +27,15 @@ class Layout extends Component {
     render() {
         const
             CLASS_THEME = this.state.darkMode ? 'theme-dark' : 'theme-light',
-            { children, notShowHeader } = this.props,
+            { children, notShowHeader, target } = this.props,
             { language } = this.state
 
         return (
             <div className={`portfolioContent ${CLASS_THEME}`}>
                 <BackgroundLines />
-                {!notShowHeader && <Header language={language} />}
+                {!notShowHeader && <Header language={language} target={target} />}
                 <section className={`main-content ${notShowHeader ? '' : 'with-header'}`}>
-                    {Children.map(children, child => React.cloneElement(child, { language: language }))}
+                    {children && Children.map(children, child => React.cloneElement(child, { language: language }))}
                 </section>
                 <Footer
                     changeLanguage={this._changeLanguage}
