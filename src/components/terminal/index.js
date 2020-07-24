@@ -16,65 +16,14 @@ class Terminal extends Component {
         startExecutionText: false
     }
 
-
-
-    //componentWillUnmount() { this.props.hideTerminal() }
     _changeState = state => {
         this.setState({ [state]: true })
-        console.log(this.state)
-        /*const
-            sequence = {
-                0: {
-                    delay: 1000,
-                    state: 'startIntro'
-                },
-                1: {
-                    delay: 200,
-                    state: 'startPath'
-                },
-                2: {
-                    delay: 1000,
-                    state: 'startCommand'
-                },
-                3: {
-                    delay: 200,
-                    state: 'startUserTexT'
-                },
-                4: {
-                    delay: 1000,
-                    state: 'startUser'
-                },
-                5: {
-                    delay: 200,
-                    state: 'startPasswordText'
-                },
-                6:
-                {
-                    delay: 1000,
-                    state: 'startPassword'
-                },
-                7: {
-                    delay: 200,
-                    state: 'startExecutionText'
-                }
-            },
-            currentSequence = sequence[idx]
-
-        if (currentSequence)
-            setTimeout(() => {
-                this.setState({ [currentSequence.state]: true })
-                this._chainSequence(idx + 1)
-            }, currentSequence.delay)*/
     }
-
-    /* componentDidMount() {
-         this._chainSequence(0)
-     }*/
 
     render() {
 
         const
-            { terminalLoader, language, className } = this.props,
+            { terminalLoader, language, className, hideTerminal } = this.props,
             { title, command, intro, path, userText, passwordText, user, password, executionText } = terminalLoader[language]
 
         return (
@@ -93,8 +42,8 @@ class Terminal extends Component {
                                             childrenElement: 'span'
                                         },
                                     },
-                                    executionTime: 500,
-                                    delayNext: 200,
+                                    executionTime: 700,
+                                    delayNext: 300,
                                     executionType: 'waitShow',
                                     callback: this._changeState.bind(this, 'startPath')
                                 }}
@@ -224,9 +173,9 @@ class Terminal extends Component {
                                             },
                                         },
                                         executionTime: 500,
-                                        delayNext: 200,
+                                        delayNext: 1200,
                                         executionType: 'waitShow',
-                                        callback: () => { console.log('termino') }
+                                        callback: hideTerminal
                                     }}
                                 />
                             }
