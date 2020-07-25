@@ -7,16 +7,21 @@ import "./loaderPage.scss"
 
 class LoaderPage extends Component {
   state = {
-    showTerminal: true,
+    showTerminal: false,
     showLoader: false
   }
 
   _hideTerminal = () => {
     this.setState({ showTerminal: false })
+    setTimeout(() => { this.setState({ showLoader: true }) }, 500)
   }
 
   _hideLoader = () => {
     navigate('/home')
+  }
+
+  componentDidMount() {
+    setTimeout(() => { this.setState({ showTerminal: true }) }, 1)
   }
 
   render() {

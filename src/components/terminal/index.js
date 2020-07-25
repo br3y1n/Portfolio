@@ -207,12 +207,6 @@ export default props => (<StaticQuery
             user
             password
             executionText
-            logoText
-            logoImage {
-                sizes {
-                    src
-                }
-            }
         }
         ES: contentfulTerminalLoader(node_locale: {eq: "es"}) {
             title
@@ -230,12 +224,6 @@ export default props => (<StaticQuery
             user
             password
             executionText
-            logoText
-            logoImage {
-                sizes {
-                    src
-                }
-            }
         }
     }`}
     render={data => <Terminal terminalLoader={data} {...props} />}

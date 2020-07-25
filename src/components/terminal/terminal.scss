@@ -6,11 +6,16 @@
         background-color: themed("terminal-border");
         overflow: hidden;
         border-radius: 10px;
-        display: none;
-        width: 80%;
-        height: 80%;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        visibility: hidden;
         max-width: 1000px;
         max-height: 550px;
+        -webkit-transition: all 0.4s ease-in;
+        -moz-transition: all 0.4s ease-in;
+        -o-transition: all 0.4s ease-in;
+        transition: all 0.4s ease-in;
 
         .terminal-header {
             color: themed("tertiary-color");
@@ -28,7 +33,7 @@
             border-radius: 5px 5px 10px 10px;
             background-color: themed("terminal-content");
             color: themed("tertiary-color");
-            overflow-y: auto;
+            overflow: auto;
             position: relative;
 
             .terminal-legal {
@@ -73,20 +78,12 @@
                 }
             }
         }
-
-        .terminal-content::-webkit-scrollbar {
-            width: 10px;
-        }
-        .terminal-content::-webkit-scrollbar-track {
-            border-radius: 20px;
-        }
-        .terminal-content::-webkit-scrollbar-thumb {
-            background: themed("tertiary-color");
-            border-radius: 20px;
-        }
     }
 }
 
 .terminal.active {
-    display: block;
+    opacity: 1;
+    width: 80%;
+    height: 80%;
+    visibility: inherit;
 }

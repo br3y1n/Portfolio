@@ -3,10 +3,15 @@ import './typing.scss'
 
 class TypingConsole extends Component {
 
-    state = {
-        show: false,
-        typing: false,
-        currentTyping: ''
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: false,
+            typing: false,
+            currentTyping: ''
+        }
+
+        this.myRef = React.createRef()
     }
 
     componentDidMount() {
@@ -22,9 +27,24 @@ class TypingConsole extends Component {
         }
     }
 
+    _scrollElement = targetElement => {
+        if (targetElement.offsetParent && targetElement.offsetTop !== 0) {
+            const
+                parent = targetElement.offsetParent,
+                PARENT_HEIGHT = parent.offsetHeight,
+                CHILDREN_OFFSET = targetElement.offsetTop + targetElement.offsetHeight,
+                SCROLLABLE_RANGE = CHILDREN_OFFSET - PARENT_HEIGHT
+
+            if (SCROLLABLE_RANGE > 0)
+                parent.scroll({ left: 0, top: SCROLLABLE_RANGE, behavior: 'smooth' })
+
+        }
+    }
+
     _processWait = () => {
         setTimeout(() => {
             this.setState({ show: true })
+            this._scrollElement(this.myRef.current)
             setTimeout(() => { this.props.data.callback() }, this.props.data.delayNext)
         }, this.props.data.executionTime)
     }
@@ -41,6 +61,8 @@ class TypingConsole extends Component {
                             CURRENT_TXT = prevState.currentTyping,
                             CURRENT_LENGHT = CURRENT_TXT.length,
                             UPDATE_TEXT = `${CURRENT_TXT}${TYPING_TXT.substr(CURRENT_LENGHT, 1)}`
+
+                        this._scrollElement(this.myRef.current)
 
                         if (CURRENT_LENGHT < CHARACTERS)
                             updateCurrentTyping()
@@ -76,7 +98,7 @@ class TypingConsole extends Component {
         return PARENT_ELEMENT && PARENT_ELEMENT.trim()
             ? React.createElement(
                 PARENT_ELEMENT.trim(),
-                { className: `${this.state.typing ? 'typicalWrapper' : ''} ${this.state.show ? 'active' : ''}` },
+                { className: `${this.state.typing ? 'typicalWrapper' : ''} ${this.state.show ? 'active' : ''}`, ref: this.myRef },
                 this.state.typing
                     ? this.state.currentTyping
                     : elements)

@@ -1,3 +1,65 @@
-.loader{
+@import "../../assets/css/themes";
+
+.loader {
     display: none;
+    width: 80%;
+    height: 90%;
+    max-width: 800px;
+
+    .logo-text {
+        height: 35%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        canvas {
+            @include themify($themes-color) {
+                color: themed("tertiary-color");
+            }
+            height: 80%;
+            width: auto;
+            background: transparent;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: all 1s ease-in;
+            -moz-transition: all 1s ease-in;
+            -o-transition: all 1s ease-in;
+            transition: all 1s ease-in;
+        }
+
+        canvas.active {
+            opacity: 1;
+            visibility: inherit;
+        }
+    }
+
+    .logo-image {
+        height: 65%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: 90%;
+            width: auto;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: all 0.5s ease-in;
+            -moz-transition: all 0.5s ease-in;
+            -o-transition: all 0.5s ease-in;
+            transition: all 0.5s ease-in;
+        }
+
+        img.active {
+            opacity: 1;
+            visibility: inherit;
+        }
+    }
+}
+
+.loader.active {
+    display: block;
 }
