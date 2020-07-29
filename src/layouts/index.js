@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import "../assets/css/global.scss"
 import BackgroundLines from "../components/backgroundLines"
 import Header from "../components/header"
@@ -8,9 +8,7 @@ import { useSelector } from "react-redux"
 const Layout = props => {
     const
         darkMode = useSelector(({ themeMode }) => themeMode.isDark),
-        showNavbar = useSelector(({ navbar }) => navbar.show)
-
-    const
+        showNavbar = useSelector(({ navbar }) => navbar.show),
         { children } = props,
         CLASS_THEME = darkMode ? 'theme-dark' : 'theme-light'
 

@@ -3,7 +3,7 @@ import "./languageButton.scss"
 import changeLanguage from '../../redux/actions/changeLanguage'
 import { useDispatch, useSelector } from 'react-redux'
 
-const LanguageButton = props => {
+const LanguageButton = () => {
     const
         language = useSelector(({ language }) => language),
         dispatch = useDispatch(),

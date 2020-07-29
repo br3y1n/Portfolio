@@ -1,9 +1,9 @@
-import React from "react"
+import React, { useCallback } from "react"
 import "./header.scss"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import { useSelector } from "react-redux"
 
-const Header = props => {
+const Header = () => {
 
     const
         querys = useStaticQuery(graphql`query {
@@ -60,7 +60,7 @@ const Header = props => {
         language = useSelector(({ language }) => language),
         { edges: itemsMenu } = querys[language],
         { edges: downloads } = querys[`download${language}`],
-        _evaluateLink = link => {
+        _evaluateLink = useCallback(link => {
             const
                 { id, itemName, itemTarget, itemMethod } = link.node,
                 findFile = target => downloads.filter(file => file.node.target === target)[0]
@@ -76,7 +76,7 @@ const Header = props => {
                 default:
                     return <Link to={`/${itemTarget}`} key={id} className={itemTarget === currentPage ? 'active' : ''}>{itemName}</Link>
             }
-        }
+        }, [downloads, currentPage])
 
     itemsMenu.sort((itemA, itemB) => itemA.node.position - itemB.node.position)
 
@@ -89,4 +89,4 @@ const Header = props => {
     )
 }
 
-export default Header
+export default React.memo(Header)

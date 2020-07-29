@@ -12,4 +12,4 @@ const BackgroundLines = () => {
     )
 }
 
-export default BackgroundLines
+export default React.memo(BackgroundLines, () => true) 

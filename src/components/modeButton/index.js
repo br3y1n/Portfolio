@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux"
 import setMode from '../../redux/actions/setMode'
 
 const ModeButton = () => {
-
     const
         darkMode = useSelector(({ themeMode }) => themeMode.isDark),
         dispatch = useDispatch()

@@ -59,12 +59,13 @@ const
             LINE_RATIO = line * 0.4,
             HIGHER_LINE_WIDTH = line * 0.005,
             MINOR_LINE_WIDTH = line * 0.009,
+            POINTER = line * 0.05,
             COLOR = getComputedStyle(cv).color,
             isntInsineLine = (x, y) => stroke.data[(((stroke.width * y) + x) * 4)] != 255,
             drawPoint = point => {
                 ctx.beginPath()
                 ctx.fillStyle = COLOR
-                ctx.arc(point.x, point.y, 1, 0, 2 * Math.PI)
+                ctx.arc(point.x, point.y, POINTER, 0, 2 * Math.PI)
                 ctx.fill()
                 ctx.closePath()
             },
@@ -117,7 +118,7 @@ const
 
 const ParticleText = props => {
     const
-        myRef = useRef(null),
+        myRef = useRef(),
         [show, setShow] = useState(false),
         _runParticle = useCallback(() => {
             const
@@ -142,8 +143,6 @@ const ParticleText = props => {
 
             return setInterval(() => { _movePoints(canvas, canvasCtx, movingPoints, stroke, LINE) }, 1)
         })
-
-    console.log('re render particleText')
 
     useEffect(() => {
 

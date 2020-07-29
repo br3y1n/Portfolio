@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useStaticQuery, graphql } from "gatsby"
 import TypingConsole from "../typingConsole"
 import "./terminal.scss"
 
 const Terminal = props => {
-
     const
         terminalLoader = useStaticQuery(graphql`query {
             EN: contentfulTerminalLoader(node_locale: {eq: "en-US"}){
@@ -55,10 +54,11 @@ const Terminal = props => {
         }),
         language = useSelector(({ language }) => language),
         { hideTerminal, className } = props,
-        { title, command, intro, path, userText, passwordText, user, password, executionText } = terminalLoader[language],
-        _changeState = state => {
-            updateStarts({ ...starts, [state]: true })
-        }
+        { title, command, intro, path, userText, passwordText, user, password, executionText } = terminalLoader[language]
+
+    const _changeState = useCallback(state => {
+        updateStarts({ ...starts, [state]: true })
+    }, [starts])
 
     return (
         <div className={className}>
