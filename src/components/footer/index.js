@@ -4,17 +4,11 @@ import LanguageButton from "../languageButton"
 import ModeButton from "../modeButton"
 
 
-const Footer = props => {
+const Footer = () => {
     return (
         <footer className="footer">
-            <LanguageButton
-                changeLanguage={props.changeLanguage}
-                currentLanguage={props.currentLanguage}
-            />
-            <ModeButton
-                toggleMode={props.toggleMode}
-                darkMode={props.darkMode}
-            />
+            <LanguageButton />
+            <ModeButton />
         </footer>
     )
 }

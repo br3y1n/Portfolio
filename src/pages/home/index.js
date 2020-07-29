@@ -3,9 +3,7 @@ import Layout from '../../layouts'
 
 const Home = () => {
     return (
-        <Layout target="home">
-            <h1>Home</h1>
-        </Layout>
+        <h1>Home</h1>
     )
 }
 

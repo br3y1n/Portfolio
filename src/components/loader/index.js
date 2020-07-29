@@ -1,73 +1,60 @@
-import React, { Component } from "react"
-import { graphql, StaticQuery } from "gatsby"
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useStaticQuery, graphql } from "gatsby"
 import ParticleText from '../particleText'
 import "./loader.scss"
 
-class Loader extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            showText: false,
-            showLogo: false,
-            finish: false
-        }
-    }
+const Loader = props => {
+    const
+        terminalLoader = useStaticQuery(graphql`query {
+            EN: contentfulTerminalLoader(node_locale: {eq: "en-US"}){
+                logoText
+                logoImage {
+                    localFile {
+                        publicURL
+                    }
+                }
+            }
+            ES: contentfulTerminalLoader(node_locale: {eq: "es"}) {
+                logoText
+                logoImage {
+                    localFile {
+                        publicURL
+                    }
+                }
+            }
+        }`),
+        language = useSelector(({ language }) => language),
+        { className, hideLoader } = props,
+        { logoText, logoImage: { localFile: { publicURL } } } = terminalLoader[language],
+        [showText, setShowText] = useState(false),
+        [showLogo, setShowLogo] = useState(false),
+        [finish, setFinish] = useState(false)
 
-    componentDidUpdate() {
-        if (this.props.className.includes('active') && !this.state.showText && !this.state.finish) {
-            this.setState({ showText: true })
-
+    useEffect(() => {
+        if (className.includes('active') && !showText && !finish) {
+            setShowText(true)
             setTimeout(() => {
-                this.setState({ showLogo: true })
+                setShowLogo(true)
                 setTimeout(() => {
-                    this.setState({ finish: true })
-                    setTimeout(() => {
-                        this.props.hideLoader()
-                    }, 500)
+                    setFinish(true)
+                    setTimeout(() => { hideLoader() }, 500)
                 }, 2000)
             }, 800)
         }
+    }, [className])
 
-    }
 
-    render() {
-
-        const
-            { terminalLoader, language, className, hideLoader } = this.props,
-            { logoText, logoImage: { localFile: { publicURL } } } = terminalLoader[language]
-
-        return (
-            <div className={className}>
-                <div className="logo-text">
-                    {this.state.showText && <ParticleText finish={this.state.finish} text={logoText} height={350} ratio={1} lineRange={40} />}
-                </div>
-                <div className="logo-image">
-                    <img className={this.state.showLogo && !this.state.finish ? 'active' : ''} src={publicURL}></img>
-                </div>
+    return (
+        <div className={className}>
+            <div className="logo-text">
+                {showText && <ParticleText finish={finish} text={logoText} height={350} ratio={0.65} lineRange={40} />}
             </div>
-        )
-    }
+            <div className="logo-image">
+                <img className={showLogo && !finish ? 'active' : ''} src={publicURL}></img>
+            </div>
+        </div>
+    )
 }
 
-export default props => (<StaticQuery
-    query={graphql`query {
-        EN: contentfulTerminalLoader(node_locale: {eq: "en-US"}){
-            logoText
-            logoImage {
-                localFile {
-                    publicURL
-                }
-            }
-        }
-        ES: contentfulTerminalLoader(node_locale: {eq: "es"}) {
-            logoText
-            logoImage {
-                localFile {
-                    publicURL
-                }
-            }
-        }
-    }`}
-    render={data => <Loader terminalLoader={data} {...props} />}
-/>
-)
+export default Loader

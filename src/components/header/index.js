@@ -1,8 +1,10 @@
 import React from "react"
 import "./header.scss"
 import { useStaticQuery, graphql, Link } from "gatsby"
+import { useSelector } from "react-redux"
 
 const Header = props => {
+
     const
         querys = useStaticQuery(graphql`query {
             ES: allContentfulItemMenu(filter: {node_locale: {eq: "es"}}) {
@@ -54,8 +56,10 @@ const Header = props => {
                 }
             }
         }`),
-        { edges: itemsMenu } = querys[props.language],
-        { edges: downloads } = querys[`download${props.language}`],
+        { show, currentPage } = useSelector(({ navbar }) => navbar),
+        language = useSelector(({ language }) => language),
+        { edges: itemsMenu } = querys[language],
+        { edges: downloads } = querys[`download${language}`],
         _evaluateLink = link => {
             const
                 { id, itemName, itemTarget, itemMethod } = link.node,
@@ -70,14 +74,14 @@ const Header = props => {
 
                 case 'goPage':
                 default:
-                    return <Link to={`/${itemTarget}`} key={id} className={itemTarget === props.target ? 'active' : ''}>{itemName}</Link>
+                    return <Link to={`/${itemTarget}`} key={id} className={itemTarget === currentPage ? 'active' : ''}>{itemName}</Link>
             }
         }
 
     itemsMenu.sort((itemA, itemB) => itemA.node.position - itemB.node.position)
 
     return (
-        <header>
+        <header className={show ? 'active' : ''}>
             <nav>
                 {itemsMenu.map(_evaluateLink)}
             </nav>

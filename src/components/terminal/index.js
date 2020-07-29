@@ -1,231 +1,226 @@
-import React, { Component } from "react"
-import { graphql, StaticQuery } from "gatsby"
-import "./terminal.scss"
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useStaticQuery, graphql } from "gatsby"
 import TypingConsole from "../typingConsole"
+import "./terminal.scss"
 
-class Terminal extends Component {
+const Terminal = props => {
 
-    state = {
-        startIntro: true,
-        startPath: false,
-        startCommand: false,
-        startUserTexT: false,
-        startUser: false,
-        startPasswordText: false,
-        startPassword: false,
-        startExecutionText: false
-    }
+    const
+        terminalLoader = useStaticQuery(graphql`query {
+            EN: contentfulTerminalLoader(node_locale: {eq: "en-US"}){
+                title
+                intro {
+                    content {
+                        content {
+                            value
+                        }
+                    }
+                }
+                path
+                command
+                userText
+                passwordText
+                user
+                password
+                executionText
+            }
+            ES: contentfulTerminalLoader(node_locale: {eq: "es"}) {
+                title
+                intro {
+                    content {
+                        content {
+                            value
+                        }
+                    }
+                }
+                path
+                command
+                userText
+                passwordText
+                user
+                password
+                executionText
+            }
+        }`),
+        [starts, updateStarts] = useState({
+            startIntro: true,
+            startPath: false,
+            startCommand: false,
+            startUserTexT: false,
+            startUser: false,
+            startPasswordText: false,
+            startPassword: false,
+            startExecutionText: false
+        }),
+        language = useSelector(({ language }) => language),
+        { hideTerminal, className } = props,
+        { title, command, intro, path, userText, passwordText, user, password, executionText } = terminalLoader[language],
+        _changeState = state => {
+            updateStarts({ ...starts, [state]: true })
+        }
 
-    _changeState = state => {
-        this.setState({ [state]: true })
-    }
+    return (
+        <div className={className}>
+            <div className="terminal-header"><p>{title}</p></div>
+            <div className="terminal-content">
+                <div className="terminal-legal">
 
-    render() {
+                    {starts.startIntro &&
+                        <TypingConsole
+                            data={{
+                                returnElement: {
+                                    parentElement: 'p',
+                                    childrenElements: {
+                                        childrens: intro.content,
+                                        childrenElement: 'span'
+                                    },
+                                },
+                                executionTime: 700,
+                                delayNext: 300,
+                                executionType: 'waitShow',
+                                callback: _changeState.bind(undefined, 'startPath')
+                            }}
+                        />
+                    }
 
-        const
-            { terminalLoader, language, className, hideTerminal } = this.props,
-            { title, command, intro, path, userText, passwordText, user, password, executionText } = terminalLoader[language]
+                </div>
+                <div className="terminal-code">
 
-        return (
-            <div className={className}>
-                <div className="terminal-header"><p>{title}</p></div>
-                <div className="terminal-content">
-                    <div className="terminal-legal">
-
-                        {this.state.startIntro &&
+                    <p>
+                        {starts.startPath &&
                             <TypingConsole
                                 data={{
                                     returnElement: {
-                                        parentElement: 'p',
+                                        parentElement: 'span',
                                         childrenElements: {
-                                            childrens: intro.content,
-                                            childrenElement: 'span'
+                                            childrens: [path]
                                         },
                                     },
-                                    executionTime: 700,
-                                    delayNext: 300,
+                                    executionTime: 100,
+                                    delayNext: 200,
                                     executionType: 'waitShow',
-                                    callback: this._changeState.bind(this, 'startPath')
+                                    callback: _changeState.bind(undefined, 'startCommand')
                                 }}
                             />
                         }
 
-                    </div>
-                    <div className="terminal-code">
-
-                        <p>
-                            {this.state.startPath &&
-                                <TypingConsole
-                                    data={{
-                                        returnElement: {
-                                            parentElement: 'span',
-                                            childrenElements: {
-                                                childrens: [path]
-                                            },
+                        {starts.startCommand &&
+                            <TypingConsole
+                                data={{
+                                    returnElement: {
+                                        parentElement: 'span',
+                                        childrenElements: {
+                                            childrens: [command]
                                         },
-                                        executionTime: 100,
-                                        delayNext: 200,
-                                        executionType: 'waitShow',
-                                        callback: this._changeState.bind(this, 'startCommand')
-                                    }}
-                                />
-                            }
+                                    },
+                                    executionTime: 1000,
+                                    delayNext: 200,
+                                    executionType: 'typing',
+                                    callback: _changeState.bind(undefined, 'startUserTexT')
+                                }}
+                            />
+                        }
 
-                            {this.state.startCommand &&
-                                <TypingConsole
-                                    data={{
-                                        returnElement: {
-                                            parentElement: 'span',
-                                            childrenElements: {
-                                                childrens: [command]
-                                            },
+                    </p>
+
+                    <p className="ident">
+                        {starts.startUserTexT &&
+                            <TypingConsole
+                                data={{
+                                    returnElement: {
+                                        parentElement: 'span',
+                                        childrenElements: {
+                                            childrens: [userText]
                                         },
-                                        executionTime: 1000,
-                                        delayNext: 200,
-                                        executionType: 'typing',
-                                        callback: this._changeState.bind(this, 'startUserTexT')
-                                    }}
-                                />
-                            }
+                                    },
+                                    executionTime: 100,
+                                    delayNext: 200,
+                                    executionType: 'waitShow',
+                                    callback: _changeState.bind(undefined, 'startUser')
+                                }}
+                            />
+                        }
 
-                        </p>
-
-                        <p className="ident">
-                            {this.state.startUserTexT &&
-                                <TypingConsole
-                                    data={{
-                                        returnElement: {
-                                            parentElement: 'span',
-                                            childrenElements: {
-                                                childrens: [userText]
-                                            },
+                        {starts.startUser &&
+                            <TypingConsole
+                                data={{
+                                    returnElement: {
+                                        parentElement: 'span',
+                                        childrenElements: {
+                                            childrens: [user]
                                         },
-                                        executionTime: 100,
-                                        delayNext: 200,
-                                        executionType: 'waitShow',
-                                        callback: this._changeState.bind(this, 'startUser')
-                                    }}
-                                />
-                            }
+                                    },
+                                    executionTime: 800,
+                                    delayNext: 200,
+                                    executionType: 'typing',
+                                    callback: _changeState.bind(undefined, 'startPasswordText')
+                                }}
+                            />
+                        }
+                    </p>
 
-                            {this.state.startUser &&
-                                <TypingConsole
-                                    data={{
-                                        returnElement: {
-                                            parentElement: 'span',
-                                            childrenElements: {
-                                                childrens: [user]
-                                            },
+                    <p className="ident">
+                        {starts.startPasswordText &&
+                            <TypingConsole
+                                data={{
+                                    returnElement: {
+                                        parentElement: 'span',
+                                        childrenElements: {
+                                            childrens: [passwordText]
                                         },
-                                        executionTime: 800,
-                                        delayNext: 200,
-                                        executionType: 'typing',
-                                        callback: this._changeState.bind(this, 'startPasswordText')
-                                    }}
-                                />
-                            }
-                        </p>
+                                    },
+                                    executionTime: 100,
+                                    delayNext: 200,
+                                    executionType: 'waitShow',
+                                    callback: _changeState.bind(undefined, 'startPassword')
+                                }}
+                            />
+                        }
 
-                        <p className="ident">
-                            {this.state.startPasswordText &&
-                                <TypingConsole
-                                    data={{
-                                        returnElement: {
-                                            parentElement: 'span',
-                                            childrenElements: {
-                                                childrens: [passwordText]
-                                            },
+                        {starts.startPassword &&
+                            <TypingConsole
+                                data={{
+                                    returnElement: {
+                                        parentElement: 'span',
+                                        childrenElements: {
+                                            childrens: [password]
                                         },
-                                        executionTime: 100,
-                                        delayNext: 200,
-                                        executionType: 'waitShow',
-                                        callback: this._changeState.bind(this, 'startPassword')
-                                    }}
-                                />
-                            }
+                                    },
+                                    executionTime: 800,
+                                    delayNext: 200,
+                                    executionType: 'typing',
+                                    callback: _changeState.bind(undefined, 'startExecutionText')
+                                }}
+                            />
+                        }
+                    </p>
 
-                            {this.state.startPassword &&
-                                <TypingConsole
-                                    data={{
-                                        returnElement: {
-                                            parentElement: 'span',
-                                            childrenElements: {
-                                                childrens: [password]
-                                            },
+                    <p>
+                        {starts.startExecutionText &&
+                            <TypingConsole
+                                data={{
+                                    returnElement: {
+                                        parentElement: 'span',
+                                        childrenElements: {
+                                            childrens: [executionText]
                                         },
-                                        executionTime: 800,
-                                        delayNext: 200,
-                                        executionType: 'typing',
-                                        callback: this._changeState.bind(this, 'startExecutionText')
-                                    }}
-                                />
-                            }
-                        </p>
-
-                        <p>
-                            {this.state.startExecutionText &&
-                                <TypingConsole
-                                    data={{
-                                        returnElement: {
-                                            parentElement: 'span',
-                                            childrenElements: {
-                                                childrens: [executionText]
-                                            },
-                                        },
-                                        executionTime: 500,
-                                        delayNext: 1200,
-                                        executionType: 'waitShow',
-                                        callback: hideTerminal
-                                    }}
-                                />
-                            }
-                        </p>
-
-                    </div>
+                                    },
+                                    executionTime: 500,
+                                    delayNext: 1200,
+                                    executionType: 'waitShow',
+                                    callback: hideTerminal
+                                }}
+                            />
+                        }
+                    </p>
 
                 </div>
+
             </div>
-        )
-    }
+        </div>
+    )
+
 }
 
-export default props => (<StaticQuery
-    query={graphql`query {
-        EN: contentfulTerminalLoader(node_locale: {eq: "en-US"}){
-            title
-            intro {
-                content {
-                    content {
-                        value
-                    }
-                }
-            }
-            path
-            command
-            userText
-            passwordText
-            user
-            password
-            executionText
-        }
-        ES: contentfulTerminalLoader(node_locale: {eq: "es"}) {
-            title
-            intro {
-                content {
-                    content {
-                        value
-                    }
-                }
-            }
-            path
-            command
-            userText
-            passwordText
-            user
-            password
-            executionText
-        }
-    }`}
-    render={data => <Terminal terminalLoader={data} {...props} />}
-/>
-)
+export default Terminal

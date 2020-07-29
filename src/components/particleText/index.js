@@ -1,42 +1,7 @@
-import React, { Component } from "react"
+import React, { useRef, useEffect, useState, useCallback } from 'react'
 
-class ParticleText extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            show: false
-        }
-
-        this.myRef = React.createRef()
-    }
-
-    _runParticle = () => {
-        const
-            { height: HEIGHT, text: TEXT, ratio: RATIO, lineRange: LINE } = this.props,
-            canvas = this.myRef.current,
-            virtualCanvas = document.createElement('canvas'),
-            canvasCtx = canvas.getContext('2d'),
-            virtualCanvasCtx = virtualCanvas.getContext('2d'),
-            canvasStyles = getComputedStyle(canvas),
-            FONT = `${HEIGHT}px ${canvasStyles.fontFamily}`
-
-        virtualCanvasCtx.font = FONT
-        virtualCanvasCtx.textAlign = 'center'
-        virtualCanvas.width = virtualCanvasCtx.measureText(TEXT).width
-        virtualCanvas.height = HEIGHT
-        canvas.width = virtualCanvas.width
-        canvas.height = HEIGHT
-
-        const
-            stroke = this._getStroke(virtualCanvas, virtualCanvasCtx, FONT, TEXT),
-            movingPoints = this._getPoints(stroke, RATIO),
-            interval = setInterval(() => { this._movePoints(canvas, canvasCtx, movingPoints, stroke, LINE) }, 1)
-
-        this.setState({ interval: interval, text: TEXT })
-    }
-
-    _getStroke(cv, ctx, font, text) {
+const
+    _getStroke = (cv, ctx, font, text) => {
         ctx.beginPath()
         ctx.fillStyle = "#000"
         ctx.rect(0, 0, cv.width, cv.height)
@@ -48,10 +13,8 @@ class ParticleText extends Component {
         ctx.closePath()
 
         return ctx.getImageData(0, 0, cv.width, cv.height)
-    }
-
-    _getPoints(stroke, ratio) {
-
+    },
+    _getPoints = (stroke, ratio) => {
         const
             rgbaData = stroke.data,
             skillfulPixels = [],
@@ -90,12 +53,12 @@ class ParticleText extends Component {
         for (let i = 0; i < NUMBER_POINTS; i++) { generateRandomPoint() }
 
         return movingPoints
-    }
-
-    _movePoints(cv, ctx, movingPoints, stroke, line) {
-
+    },
+    _movePoints = (cv, ctx, movingPoints, stroke, line) => {
         const
-            RATIO_LINE = parseInt(line / 20),
+            LINE_RATIO = line * 0.4,
+            HIGHER_LINE_WIDTH = line * 0.005,
+            MINOR_LINE_WIDTH = line * 0.009,
             COLOR = getComputedStyle(cv).color,
             isntInsineLine = (x, y) => stroke.data[(((stroke.width * y) + x) * 4)] != 255,
             drawPoint = point => {
@@ -123,7 +86,6 @@ class ParticleText extends Component {
                 })
             }
 
-
         ctx.clearRect(0, 0, cv.width, cv.height)
 
         movingPoints.forEach(point => {
@@ -137,7 +99,7 @@ class ParticleText extends Component {
                 const HYPOTENUSE = Math.sqrt(Math.pow(point.x - otherPoint.x, 2) + Math.pow(point.y - otherPoint.y, 2))
 
                 if (HYPOTENUSE < line) {
-                    ctx.lineWidth = HYPOTENUSE < RATIO_LINE ? .2 : .1
+                    ctx.lineWidth = HYPOTENUSE < LINE_RATIO ? MINOR_LINE_WIDTH : HIGHER_LINE_WIDTH
                     ctx.beginPath()
                     ctx.strokeStyle = COLOR
                     ctx.moveTo(point.x, point.y)
@@ -152,25 +114,46 @@ class ParticleText extends Component {
         })
     }
 
-    componentDidMount() {
-        setTimeout(() => { this.setState({ show: true }) }, 1)
-        this._runParticle()
-    }
 
-    componentWillReceiveProps() {
-        const
-            TEXT = this.props.text,
-            { text, interval } = this.state
+const ParticleText = props => {
+    const
+        myRef = useRef(null),
+        [show, setShow] = useState(false),
+        _runParticle = useCallback(() => {
+            const
+                { height: HEIGHT, text: TEXT, ratio: RATIO, lineRange: LINE } = props,
+                canvas = myRef.current,
+                virtualCanvas = document.createElement('canvas'),
+                canvasCtx = canvas.getContext('2d'),
+                virtualCanvasCtx = virtualCanvas.getContext('2d'),
+                canvasStyles = getComputedStyle(canvas),
+                FONT = `${HEIGHT}px ${canvasStyles.fontFamily}`
 
-        if (text != TEXT) {
-            clearInterval(interval)
-            this._runParticle()
-        }
-    }
+            virtualCanvasCtx.font = FONT
+            virtualCanvasCtx.textAlign = 'center'
+            virtualCanvas.width = virtualCanvasCtx.measureText(TEXT).width
+            virtualCanvas.height = HEIGHT
+            canvas.width = virtualCanvas.width
+            canvas.height = HEIGHT
 
-    render() {
-        return (<canvas ref={this.myRef} className={this.state.show && !this.props.finish ? 'active' : ''} ></canvas>)
-    }
+            const
+                stroke = _getStroke(virtualCanvas, virtualCanvasCtx, FONT, TEXT),
+                movingPoints = _getPoints(stroke, RATIO)
+
+            return setInterval(() => { _movePoints(canvas, canvasCtx, movingPoints, stroke, LINE) }, 1)
+        })
+
+    console.log('re render particleText')
+
+    useEffect(() => {
+
+        const timer = _runParticle()
+        setTimeout(() => { setShow(true) }, 1)
+
+        return () => { clearInterval(timer) }
+    }, [])
+
+    return (<canvas ref={myRef} className={show && !props.finish ? 'active' : ''} ></canvas>)
 }
 
 export default ParticleText
