@@ -6,7 +6,7 @@ import ModeButton from "../modeButton"
 
 const Footer = () => {
     return (
-        <footer className="footer">
+        <footer className="footer noselect">
             <LanguageButton />
             <ModeButton />
         </footer>

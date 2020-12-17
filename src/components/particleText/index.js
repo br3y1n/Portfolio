@@ -145,14 +145,11 @@ const ParticleText = props => {
         })
 
     useEffect(() => {
-
         const timer = _runParticle()
-        setTimeout(() => { setShow(true) }, 1)
-
         return () => { clearInterval(timer) }
     }, [])
 
-    return (<canvas ref={myRef} className={show && !props.finish ? 'active' : ''} ></canvas>)
+    return (<canvas ref={myRef} className={props.className} ></canvas>)
 }
 
 export default ParticleText

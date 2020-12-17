@@ -81,7 +81,7 @@ const Header = () => {
     itemsMenu.sort((itemA, itemB) => itemA.node.position - itemB.node.position)
 
     return (
-        <header className={show ? 'active' : ''}>
+        <header className={`noselect ${show ? 'active' : ''}`}>
             <nav>
                 {itemsMenu.map(_evaluateLink)}
             </nav>

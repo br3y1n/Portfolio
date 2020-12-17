@@ -1,7 +1,7 @@
 import { type as updateNavbar } from '../actions/updateNavbar'
 
 const initialState = {
-    show: true,
+    show: false,
     currentPage: ''
 }
 

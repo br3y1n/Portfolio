@@ -12,10 +12,14 @@
         visibility: hidden;
         max-width: 1000px;
         max-height: 550px;
-        -webkit-transition: all 0.4s ease-in;
-        -moz-transition: all 0.4s ease-in;
-        -o-transition: all 0.4s ease-in;
-        transition: all 0.4s ease-in;
+        -webkit-transition: all 0.5s ease-in;
+        -moz-transition: all 0.5s ease-in;
+        -o-transition: all 0.5s ease-in;
+        transition: all 0.5s ease-in;
+
+        @media (max-width: 480px) {
+            font-size: 16px;
+        }
 
         .terminal-header {
             color: themed("tertiary-color");

@@ -3,30 +3,32 @@
 .loader {
     display: none;
     width: 80%;
-    height: 90%;
+    height: auto;
+    margin: auto;
     max-width: 800px;
 
     .logo-text {
-        height: 35%;
-        width: 100%;
+        height: auto;
+        width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
+        margin: auto;
 
         canvas {
             @include themify($themes-color) {
                 color: themed("tertiary-color");
             }
-            height: 80%;
-            width: auto;
+            height: auto;
+            width: 100%;
             background: transparent;
             opacity: 0;
             visibility: hidden;
-            -webkit-transition: all 1s ease-in;
-            -moz-transition: all 1s ease-in;
-            -o-transition: all 1s ease-in;
-            transition: all 1s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            -moz-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
         }
 
         canvas.active {
@@ -36,24 +38,100 @@
     }
 
     .logo-image {
-        height: 65%;
+        height: auto;
         width: 100%;
+        padding: 5% 0;
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
 
-        img {
-            height: 90%;
-            width: auto;
+        .logoContainer {
+            width: 20%;
+            height: auto;
+            padding-bottom: calc((20% * 100) / 57.6);
             opacity: 0;
+            position: relative;
             visibility: hidden;
-            -webkit-transition: all 0.5s ease-in;
-            -moz-transition: all 0.5s ease-in;
-            -o-transition: all 0.5s ease-in;
-            transition: all 0.5s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            -moz-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+
+            div {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding-bottom: calc((100% * 500) / 288);
+            }
+
+            @include themify($themes-color) {
+                .backBackground {
+                    background: -prefix-linear-gradient(270deg, themed("secondary-color"), themed("tertiary-color"));
+                    background: linear-gradient(270deg, themed("secondary-color"), themed("tertiary-color"));
+                    transform: rotate(-90deg);
+                }
+
+                .middleBackground {
+                    background: -prefix-linear-gradient(135deg, themed("secondary-color"), themed("tertiary-color"));
+                    background: linear-gradient(135deg, themed("secondary-color"), themed("tertiary-color"));
+                    transform: rotate(-90deg);
+                    -webkit-transition: all 0.25s linear;
+                    -moz-transition: all 0.25s linear;
+                    -o-transition: all 0.25s linear;
+                    transition: all 0.25s linear;
+                }
+
+                .middleBackground.rotate {
+                    transform: rotate(-150deg);
+                }
+
+                .frontBackground {
+                    background: -prefix-linear-gradient(135deg, themed("secondary-color"), themed("tertiary-color"));
+                    background: linear-gradient(135deg, themed("secondary-color"), themed("tertiary-color"));
+                    transform: rotate(-90deg);
+                    -webkit-transition: all 0.5s linear;
+                    -moz-transition: all 0.5s linear;
+                    -o-transition: all 0.5s linear;
+                    transition: all 0.5s linear;
+                }
+
+                .frontBackground.rotate {
+                    transform: rotate(-210deg);
+                }
+            }
         }
 
-        img.active {
+        .logoContainer.active {
+            opacity: 1;
+            visibility: inherit;
+        }
+
+        .svgContainer {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: all 0.2s ease-in;
+            -moz-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+
+            svg {
+                width: 17%;
+                height: auto;
+                margin: auto;
+                display: block;
+                @include themify($themes-color) {
+                    fill: themed("background-color");
+                }
+            }
+        }
+
+        .svgContainer.active {
             opacity: 1;
             visibility: inherit;
         }

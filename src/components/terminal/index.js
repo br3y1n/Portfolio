@@ -76,8 +76,8 @@ const Terminal = props => {
                                         childrenElement: 'span'
                                     },
                                 },
-                                executionTime: 700,
-                                delayNext: 300,
+                                executionTime: 600,
+                                delayNext: 50,
                                 executionType: 'waitShow',
                                 callback: _changeState.bind(undefined, 'startPath')
                             }}
@@ -97,8 +97,8 @@ const Terminal = props => {
                                             childrens: [path]
                                         },
                                     },
-                                    executionTime: 100,
-                                    delayNext: 200,
+                                    executionTime: 50,
+                                    delayNext: 50,
                                     executionType: 'waitShow',
                                     callback: _changeState.bind(undefined, 'startCommand')
                                 }}
@@ -114,8 +114,8 @@ const Terminal = props => {
                                             childrens: [command]
                                         },
                                     },
-                                    executionTime: 1000,
-                                    delayNext: 200,
+                                    executionTime: 800,
+                                    delayNext: 50,
                                     executionType: 'typing',
                                     callback: _changeState.bind(undefined, 'startUserTexT')
                                 }}
@@ -134,8 +134,8 @@ const Terminal = props => {
                                             childrens: [userText]
                                         },
                                     },
-                                    executionTime: 100,
-                                    delayNext: 200,
+                                    executionTime: 50,
+                                    delayNext: 50,
                                     executionType: 'waitShow',
                                     callback: _changeState.bind(undefined, 'startUser')
                                 }}
@@ -151,8 +151,8 @@ const Terminal = props => {
                                             childrens: [user]
                                         },
                                     },
-                                    executionTime: 800,
-                                    delayNext: 200,
+                                    executionTime: 300,
+                                    delayNext: 50,
                                     executionType: 'typing',
                                     callback: _changeState.bind(undefined, 'startPasswordText')
                                 }}
@@ -170,8 +170,8 @@ const Terminal = props => {
                                             childrens: [passwordText]
                                         },
                                     },
-                                    executionTime: 100,
-                                    delayNext: 200,
+                                    executionTime: 50,
+                                    delayNext: 50,
                                     executionType: 'waitShow',
                                     callback: _changeState.bind(undefined, 'startPassword')
                                 }}
@@ -187,8 +187,8 @@ const Terminal = props => {
                                             childrens: [password]
                                         },
                                     },
-                                    executionTime: 800,
-                                    delayNext: 200,
+                                    executionTime: 300,
+                                    delayNext: 50,
                                     executionType: 'typing',
                                     callback: _changeState.bind(undefined, 'startExecutionText')
                                 }}
@@ -206,8 +206,8 @@ const Terminal = props => {
                                             childrens: [executionText]
                                         },
                                     },
-                                    executionTime: 500,
-                                    delayNext: 1200,
+                                    executionTime: 100,
+                                    delayNext: 200,
                                     executionType: 'waitShow',
                                     callback: hideTerminal
                                 }}

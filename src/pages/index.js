@@ -27,7 +27,7 @@ const LoaderPage = () => {
     }, [_dispatch])
 
     return (
-        <div className="loader-page">
+        <div className="loader-page noselect">
             <Terminal className={`terminal ${showTerminal ? 'active' : ''}`} hideTerminal={_hideTerminal} />
             <Loader className={`loader ${showLoader ? 'active' : ''}`} hideLoader={_hideLoader} />
         </div>

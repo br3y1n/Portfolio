@@ -45,7 +45,7 @@ const TypingConsole = props => {
             { returnElement, executionTime, callback, delayNext } = data,
             TYPING_TXT = returnElement.childrenElements.childrens[0],
             CHARACTERS = TYPING_TXT.length,
-            DELAY = CHARACTERS ? parseInt((executionTime - 300) / CHARACTERS) : 0,
+            DELAY = CHARACTERS ? parseInt((executionTime - 50) / CHARACTERS) : 0,
             updateCurrentTyping = CURRENT_TYPING => {
                 setTimeout(() => {
                     const
