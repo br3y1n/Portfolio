@@ -77,10 +77,10 @@
                     background: -prefix-linear-gradient(135deg, themed("secondary-color"), themed("tertiary-color"));
                     background: linear-gradient(135deg, themed("secondary-color"), themed("tertiary-color"));
                     transform: rotate(-90deg);
-                    -webkit-transition: all 0.25s linear;
-                    -moz-transition: all 0.25s linear;
-                    -o-transition: all 0.25s linear;
-                    transition: all 0.25s linear;
+                    -webkit-transition: all 0.4s linear;
+                    -moz-transition: all 0.4s linear;
+                    -o-transition: all 0.4s linear;
+                    transition: all 0.4s linear;
                 }
 
                 .middleBackground.rotate {
@@ -91,10 +91,10 @@
                     background: -prefix-linear-gradient(135deg, themed("secondary-color"), themed("tertiary-color"));
                     background: linear-gradient(135deg, themed("secondary-color"), themed("tertiary-color"));
                     transform: rotate(-90deg);
-                    -webkit-transition: all 0.5s linear;
-                    -moz-transition: all 0.5s linear;
-                    -o-transition: all 0.5s linear;
-                    transition: all 0.5s linear;
+                    -webkit-transition: all 0.8s linear;
+                    -moz-transition: all 0.8s linear;
+                    -o-transition: all 0.8s linear;
+                    transition: all 0.8s linear;
                 }
 
                 .frontBackground.rotate {

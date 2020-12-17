@@ -1,6 +1,6 @@
 .typicalWrapper::after {
     content: "|";
-    animation: blink 0.5s infinite step-start;
+    animation: blink 0.4s infinite step-start;
 }
 
 @keyframes blink {

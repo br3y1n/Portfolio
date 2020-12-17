@@ -31,11 +31,11 @@ const Loader = props => {
                     setTimeout(() => {
                         setFinish(true)
                         setTimeout(() => { hideLoader() }, 100)
-                    }, 1000)
-                }, 500)
+                    }, 1500)
+                }, 600)
             }, 1)
         }
-    }, [className])
+    }, [className, showText, finish, hideLoader])
 
 
     return (
@@ -58,7 +58,7 @@ const Loader = props => {
                 </div>
             </div>
             <div className="logo-text">
-                <ParticleText className={showText && !finish ? 'active' : ''} text={logoText} height={350} ratio={0.65} lineRange={40} />
+                <ParticleText className={showText && !finish ? 'active' : ''} text={logoText} height={350} ratio={0.5} lineRange={60} />
             </div>
         </div >
     )

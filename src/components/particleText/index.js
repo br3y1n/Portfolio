@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react'
+import React, { useRef, useEffect } from 'react'
 
 const
     _getStroke = (cv, ctx, font, text) => {
@@ -54,60 +54,55 @@ const
 
         return movingPoints
     },
+    _drawPoint = (ctx, color, point, pointer) => {
+        ctx.beginPath()
+        ctx.fillStyle = color
+        ctx.arc(point.x, point.y, pointer, 0, 2 * Math.PI)
+        ctx.fill()
+        ctx.closePath()
+    },
+    _isntInsineLine = (x, y, stroke) => stroke.data[(((stroke.width * y) + x) * 4)] !== 255,
+    _changeDirectionsIfApplicable = (point, cv, stroke) => {
+
+        ['x', 'y'].forEach(axe => {
+            const
+                NEXT_COORD_X = point.x + point.directionX,
+                NEXT_COORD_Y = point.y + point.directionY,
+                CURRENT_POSITION = point[axe] + point[`direction${axe.toUpperCase()}`],
+                CHANGE_APPLY = axe === 'x'
+                    ? (CURRENT_POSITION >= cv.width || CURRENT_POSITION < 0 || _isntInsineLine(NEXT_COORD_X, point.y, stroke))
+                    : (CURRENT_POSITION >= cv.height || CURRENT_POSITION < 0 || _isntInsineLine(point.x, NEXT_COORD_Y, stroke))
+
+            if (CHANGE_APPLY) {
+                point[`direction${axe.toUpperCase()}`] *= -1
+                point[axe] += point[`direction${axe.toUpperCase()}`] * 2
+            }
+        })
+    },
     _movePoints = (cv, ctx, movingPoints, stroke, line) => {
         const
-            LINE_RATIO = line * 0.4,
-            HIGHER_LINE_WIDTH = line * 0.005,
-            MINOR_LINE_WIDTH = line * 0.009,
-            POINTER = line * 0.05,
-            COLOR = getComputedStyle(cv).color,
-            isntInsineLine = (x, y) => stroke.data[(((stroke.width * y) + x) * 4)] != 255,
-            drawPoint = point => {
-                ctx.beginPath()
-                ctx.fillStyle = COLOR
-                ctx.arc(point.x, point.y, POINTER, 0, 2 * Math.PI)
-                ctx.fill()
-                ctx.closePath()
-            },
-            changeDirectionsIfApplicable = point => {
-
-                ['x', 'y'].forEach(axe => {
-                    const
-                        NEXT_COORD_X = point.x + point.directionX,
-                        NEXT_COORD_Y = point.y + point.directionY,
-                        CURRENT_POSITION = point[axe] + point[`direction${axe.toUpperCase()}`],
-                        CHANGE_APPLY = axe === 'x'
-                            ? (CURRENT_POSITION >= cv.width || CURRENT_POSITION < 0 || isntInsineLine(NEXT_COORD_X, point.y))
-                            : (CURRENT_POSITION >= cv.height || CURRENT_POSITION < 0 || isntInsineLine(point.x, NEXT_COORD_Y))
-
-                    if (CHANGE_APPLY) {
-                        point[`direction${axe.toUpperCase()}`] *= -1
-                        point[axe] += point[`direction${axe.toUpperCase()}`] * 2
-                    }
-                })
-            }
+            COLOR = getComputedStyle(cv).color
 
         ctx.clearRect(0, 0, cv.width, cv.height)
 
-        movingPoints.forEach(point => {
+        movingPoints.forEach((point, currentIdx) => {
 
-            drawPoint(point)
-            changeDirectionsIfApplicable(point)
+            _drawPoint(ctx, COLOR, point, line.pointer)
+            _changeDirectionsIfApplicable(point, cv, stroke)
 
-            movingPoints.forEach(otherPoint => {
-                if (otherPoint === point) return
+            movingPoints.forEach((otherPoint, otherIdx) => {
+                if (otherPoint === point || currentIdx >= otherIdx) return
 
                 const HYPOTENUSE = Math.sqrt(Math.pow(point.x - otherPoint.x, 2) + Math.pow(point.y - otherPoint.y, 2))
 
-                if (HYPOTENUSE < line) {
-                    ctx.lineWidth = HYPOTENUSE < LINE_RATIO ? MINOR_LINE_WIDTH : HIGHER_LINE_WIDTH
+                if (HYPOTENUSE < line.real) {
+                    ctx.lineWidth = HYPOTENUSE < line.ratio ? line.minorWidth : line.higherWidth
                     ctx.beginPath()
                     ctx.strokeStyle = COLOR
                     ctx.moveTo(point.x, point.y)
                     ctx.lineTo(otherPoint.x, otherPoint.y)
                     ctx.stroke()
                 }
-
             })
 
             point.x += point.directionX
@@ -117,35 +112,43 @@ const
 
 
 const ParticleText = props => {
+
     const
-        myRef = useRef(),
-        [show, setShow] = useState(false),
-        _runParticle = useCallback(() => {
-            const
-                { height: HEIGHT, text: TEXT, ratio: RATIO, lineRange: LINE } = props,
-                canvas = myRef.current,
-                virtualCanvas = document.createElement('canvas'),
-                canvasCtx = canvas.getContext('2d'),
-                virtualCanvasCtx = virtualCanvas.getContext('2d'),
-                canvasStyles = getComputedStyle(canvas),
-                FONT = `${HEIGHT}px ${canvasStyles.fontFamily}`
-
-            virtualCanvasCtx.font = FONT
-            virtualCanvasCtx.textAlign = 'center'
-            virtualCanvas.width = virtualCanvasCtx.measureText(TEXT).width
-            virtualCanvas.height = HEIGHT
-            canvas.width = virtualCanvas.width
-            canvas.height = HEIGHT
-
-            const
-                stroke = _getStroke(virtualCanvas, virtualCanvasCtx, FONT, TEXT),
-                movingPoints = _getPoints(stroke, RATIO)
-
-            return setInterval(() => { _movePoints(canvas, canvasCtx, movingPoints, stroke, LINE) }, 1)
-        })
+        myRef = useRef()
 
     useEffect(() => {
-        const timer = _runParticle()
+        const
+            _runParticle = () => {
+                const
+                    { height: HEIGHT, text: TEXT, ratio: RATIO, lineRange } = props,
+                    line = {
+                        real: lineRange,
+                        ratio: lineRange * 0.4,
+                        higherWidth: lineRange * 0.005,
+                        minorWidth: lineRange * 0.009,
+                        pointer: lineRange * 0.05
+                    },
+                    canvas = myRef.current,
+                    virtualCanvas = document.createElement('canvas'),
+                    canvasCtx = canvas.getContext('2d'),
+                    virtualCanvasCtx = virtualCanvas.getContext('2d'),
+                    canvasStyles = getComputedStyle(canvas),
+                    FONT = `${HEIGHT}px ${canvasStyles.fontFamily}`
+
+                virtualCanvasCtx.font = FONT
+                virtualCanvasCtx.textAlign = 'center'
+                virtualCanvas.width = virtualCanvasCtx.measureText(TEXT).width
+                virtualCanvas.height = HEIGHT
+                canvas.width = virtualCanvas.width
+                canvas.height = HEIGHT
+
+                const
+                    stroke = _getStroke(virtualCanvas, virtualCanvasCtx, FONT, TEXT),
+                    movingPoints = _getPoints(stroke, RATIO)
+
+                return setInterval(() => { _movePoints(canvas, canvasCtx, movingPoints, stroke, line) }, 75)
+            },
+            timer = _runParticle()
         return () => { clearInterval(timer) }
     }, [])
 
