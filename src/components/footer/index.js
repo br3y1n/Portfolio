@@ -7,8 +7,14 @@ import ModeButton from "../modeButton"
 const Footer = () => {
     return (
         <footer className="footer noselect">
-            <LanguageButton />
-            <ModeButton />
+            <div className="horizontal-rotation">
+                <div className="align-end">
+                    <LanguageButton />
+                </div>
+                <div className="align-end">
+                    <ModeButton />
+                </div>
+            </div>
         </footer>
     )
 }

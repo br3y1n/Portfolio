@@ -29,8 +29,8 @@ const Loader = props => {
                     setShowText(true)
                     setShowLogo({ background: true, svg: true })
                     setTimeout(() => {
-                        setFinish(true)
-                        setTimeout(() => { hideLoader() }, 100)
+                        // setFinish(true)
+                        // setTimeout(() => { hideLoader() }, 100)
                     }, 1500)
                 }, 600)
             }, 1)

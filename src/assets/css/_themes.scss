@@ -10,7 +10,7 @@ $themes-color: (
     tertiary-color: #616161,
     quaternary-color: #b4b4b4,
     terminal-border: #b4b4b469,
-    terminal-content: #61616146
+    terminal-content: #61616146,
   ),
   dark: (
     background-color: #262626,
@@ -19,9 +19,13 @@ $themes-color: (
     tertiary-color: #b4b4b4,
     quaternary-color: #797979,
     terminal-border: #454545a9,
-    terminal-content: #26262681
+    terminal-content: #26262681,
   ),
 );
+
+$device-sm: 768px;
+$device-md: 992px;
+$device-lg: 1200px;
 
 /*
  * Implementation of themes

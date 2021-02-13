@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import updateNavbar from '../redux/actions/updateNavbar'
 import Terminal from '../components/terminal'
 import Loader from '../components/loader'
+import Footer from '../components/footer'
 import { navigate } from 'gatsby'
 
 const LoaderPage = () => {
@@ -30,6 +31,7 @@ const LoaderPage = () => {
         <div className="loader-page noselect">
             <Terminal className={`terminal ${showTerminal ? 'active' : ''}`} hideTerminal={_hideTerminal} />
             <Loader className={`loader ${showLoader ? 'active' : ''}`} hideLoader={_hideLoader} />
+            <Footer />
         </div>
     )
 }

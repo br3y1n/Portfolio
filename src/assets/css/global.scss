@@ -27,19 +27,11 @@ html,
 body,
 #___gatsby,
 #gatsby-focus-wrapper,
-.portfolioContent {
+.portfolioContent,
+.main-content  {
   width: 100%;
   height: 100%;
   font-size: 102%;
-}
-
-.main-content {
-  width: 100%;
-  height: calc(100% - 80px);
-}
-
-.main-content.with-header {
-  height: calc(100% - 150px);
 }
 
 .noselect {
