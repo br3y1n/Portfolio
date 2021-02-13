@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useCallback } from "react"
+import React, { useState, useCallback } from "react"
 import "./loaderPage.scss"
-import { useDispatch } from 'react-redux'
-import updateNavbar from '../redux/actions/updateNavbar'
 import Terminal from '../components/terminal'
 import Loader from '../components/loader'
 import Footer from '../components/footer'
@@ -9,10 +7,9 @@ import { navigate } from 'gatsby'
 
 const LoaderPage = () => {
     const
-        [showTerminal, setShowTerminal] = useState(false),
+        [showTerminal, setShowTerminal] = useState(true),
         [showLoader, setShowLoader] = useState(false)
 
-    const _dispatch = useDispatch()
 
     const _hideTerminal = useCallback(() => {
         setShowTerminal(false)
@@ -20,12 +17,6 @@ const LoaderPage = () => {
     }, [])
 
     const _hideLoader = useCallback(() => { navigate('/home') }, [])
-
-
-    useEffect(() => {
-        _dispatch(updateNavbar({ show: false, currentPage: 'LoaderPage' }))
-        setTimeout(() => { setShowTerminal(true) }, 1)
-    }, [_dispatch])
 
     return (
         <div className="loader-page noselect">

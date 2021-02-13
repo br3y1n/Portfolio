@@ -7,6 +7,10 @@
     margin: auto;
     max-width: 800px;
 
+    @media (max-width: $device-sm) {
+        width: 100%;
+    }
+
     .logo-text {
         height: auto;
         width: 60%;
@@ -25,10 +29,10 @@
             background: transparent;
             opacity: 0;
             visibility: hidden;
-            -webkit-transition: all 0.2s ease-in;
-            -moz-transition: all 0.2s ease-in;
-            -o-transition: all 0.2s ease-in;
-            transition: all 0.2s ease-in;
+            -webkit-transition: all 0.4s ease-in;
+            -moz-transition: all 0.4s ease-in;
+            -o-transition: all 0.4s ease-in;
+            transition: all 0.4s ease-in;
         }
 
         canvas.active {
@@ -53,10 +57,10 @@
             opacity: 0;
             position: relative;
             visibility: hidden;
-            -webkit-transition: all 0.2s ease-in;
-            -moz-transition: all 0.2s ease-in;
-            -o-transition: all 0.2s ease-in;
-            transition: all 0.2s ease-in;
+            -webkit-transition: all 0.4s ease-in;
+            -moz-transition: all 0.4s ease-in;
+            -o-transition: all 0.4s ease-in;
+            transition: all 0.4s ease-in;
 
             div {
                 position: absolute;
@@ -115,10 +119,10 @@
             display: flex;
             opacity: 0;
             visibility: hidden;
-            -webkit-transition: all 0.2s ease-in;
-            -moz-transition: all 0.2s ease-in;
-            -o-transition: all 0.2s ease-in;
-            transition: all 0.2s ease-in;
+            -webkit-transition: all 0.4s ease-in;
+            -moz-transition: all 0.4s ease-in;
+            -o-transition: all 0.4s ease-in;
+            transition: all 0.4s ease-in;
 
             svg {
                 width: 15%;

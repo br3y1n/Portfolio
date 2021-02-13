@@ -1,5 +1,33 @@
 @import "../../assets/css/themes";
 
+@keyframes in-terminal {
+    from {
+        opacity: 0;
+        height: 0;
+        width: 0;
+    }
+    to {
+        opacity: 1;
+        height: 70%;
+        width: 70%;
+    }
+}
+
+@keyframes out-terminal {
+    from {
+        visibility: inherit;
+        opacity: 1;
+        height: 70%;
+        width: 70%;
+    }
+    to {
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        width: 0;
+    }
+}
+
 .terminal {
     @include themify($themes-color) {
         font-size: 20px;
@@ -12,12 +40,9 @@
         visibility: hidden;
         max-width: 1000px;
         max-height: 550px;
-        -webkit-transition: all 0.2s ease-in;
-        -moz-transition: all 0.2s ease-in;
-        -o-transition: all 0.2s ease-in;
-        transition: all 0.2s ease-in;
+        animation: out-terminal 0.4s linear;
 
-        @media (max-width: 480px) {
+        @media (max-width: $device-sm) {
             font-size: 16px;
         }
 
@@ -56,7 +81,7 @@
                         display: block;
                         padding: 25px 0px;
 
-                        @media (max-width: 480px) {
+                        @media (max-width: $device-sm) {
                             padding: 10px 0px;
                         }
                     }
@@ -91,7 +116,13 @@
 
 .terminal.active {
     opacity: 1;
-    width: 70%;
-    height: 70%;
+    height: 80%;
+    width: 80%;
     visibility: inherit;
+    animation: in-terminal 0.3s ease-in;
+
+    @media (max-width: $device-sm) {
+        height: 60%;
+        width: 70%;
+    }
 }

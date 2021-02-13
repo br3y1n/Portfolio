@@ -26,13 +26,15 @@ const Loader = props => {
             setTimeout(() => {
                 setShowLogo({ background: true, svg: false })
                 setTimeout(() => {
-                    setShowText(true)
                     setShowLogo({ background: true, svg: true })
                     setTimeout(() => {
-                        // setFinish(true)
-                        // setTimeout(() => { hideLoader() }, 100)
-                    }, 1500)
-                }, 600)
+                        setShowText(true)
+                        setTimeout(() => {
+                            setFinish(true)
+                            setTimeout(() => { hideLoader() }, 100)
+                        }, 1500)
+                    }, 200)
+                }, 700)
             }, 1)
         }
     }, [className, showText, finish, hideLoader])

@@ -1,5 +1,14 @@
 @import "../../assets/css/themes";
 
+@keyframes move-footer {
+    from {
+        bottom: -300px;
+    }
+    to {
+        bottom: -150px;
+    }
+}
+
 .footer {
     @include themify($themes-color) {
         background-color: themed("primary-color");
@@ -11,6 +20,7 @@
     height: 300px;
     display: flex;
     transform: rotate(-45deg);
+    animation: move-footer 0.3s ease-out;
 
     .horizontal-rotation {
         transform: rotate(45deg);
@@ -26,6 +36,15 @@
     }
 
     @media (max-width: $device-sm) {
+        @keyframes move-footer {
+            from {
+                bottom: -200px;
+            }
+            to {
+                bottom: -100px;
+            }
+        }
+
         bottom: -100px;
         left: -100px;
         width: 200px;
