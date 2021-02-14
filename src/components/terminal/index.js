@@ -65,7 +65,6 @@ const Terminal = props => {
             <div className="terminal-header"><p>{title}</p></div>
             <div className="terminal-content">
                 <div className="terminal-legal">
-
                     {starts.startIntro &&
                         <TypingConsole
                             data={{
@@ -76,17 +75,15 @@ const Terminal = props => {
                                         childrenElement: 'span'
                                     },
                                 },
-                                executionTime: 800,
+                                executionTime: 600,
                                 delayNext: 200,
                                 executionType: 'waitShow',
                                 callback: _changeState.bind(undefined, 'startPath')
                             }}
                         />
                     }
-
                 </div>
                 <div className="terminal-code">
-
                     <p>
                         {starts.startPath &&
                             <TypingConsole
@@ -98,7 +95,7 @@ const Terminal = props => {
                                         },
                                     },
                                     executionTime: 200,
-                                    delayNext: 200,
+                                    delayNext: 300,
                                     executionType: 'waitShow',
                                     callback: _changeState.bind(undefined, 'startCommand')
                                 }}
@@ -114,7 +111,7 @@ const Terminal = props => {
                                             childrens: [command]
                                         },
                                     },
-                                    executionTime: 1200,
+                                    executionTime: 500,
                                     delayNext: 200,
                                     executionType: 'typing',
                                     callback: _changeState.bind(undefined, 'startUserTexT')
@@ -123,6 +120,7 @@ const Terminal = props => {
                         }
 
                     </p>
+
 
                     <p className="ident">
                         {starts.startUserTexT &&
@@ -135,7 +133,7 @@ const Terminal = props => {
                                         },
                                     },
                                     executionTime: 200,
-                                    delayNext: 300,
+                                    delayNext: 200,
                                     executionType: 'waitShow',
                                     callback: _changeState.bind(undefined, 'startUser')
                                 }}
@@ -151,8 +149,8 @@ const Terminal = props => {
                                             childrens: [user]
                                         },
                                     },
-                                    executionTime: 700,
-                                    delayNext: 200,
+                                    executionTime: 300,
+                                    delayNext: 100,
                                     executionType: 'typing',
                                     callback: _changeState.bind(undefined, 'startPasswordText')
                                 }}
@@ -171,7 +169,7 @@ const Terminal = props => {
                                         },
                                     },
                                     executionTime: 200,
-                                    delayNext: 300,
+                                    delayNext: 200,
                                     executionType: 'waitShow',
                                     callback: _changeState.bind(undefined, 'startPassword')
                                 }}
@@ -187,8 +185,8 @@ const Terminal = props => {
                                             childrens: [password]
                                         },
                                     },
-                                    executionTime: 700,
-                                    delayNext: 200,
+                                    executionTime: 300,
+                                    delayNext: 300,
                                     executionType: 'typing',
                                     callback: _changeState.bind(undefined, 'startExecutionText')
                                 }}
@@ -207,7 +205,7 @@ const Terminal = props => {
                                         },
                                     },
                                     executionTime: 200,
-                                    delayNext: 500,
+                                    delayNext: 600,
                                     executionType: 'waitShow',
                                     callback: hideTerminal
                                 }}

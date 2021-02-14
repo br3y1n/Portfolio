@@ -2,23 +2,24 @@
 
 @keyframes move-footer {
     from {
-        bottom: -300px;
+        bottom: -250px;
     }
     to {
-        bottom: -150px;
+        bottom: -125px;
     }
 }
 
 .footer {
     @include themify($themes-color) {
-        background-color: themed("primary-color");
+        background-color: themed("frame-color");
     }
     position: fixed;
-    bottom: -150px;
-    left: -150px;
-    width: 300px;
-    height: 300px;
+    bottom: -125px;
+    left: -125px;
+    width: 250px;
+    height: 250px;
     display: flex;
+    box-shadow: 0px 0px 15px 5px #00000094;
     transform: rotate(-45deg);
     animation: move-footer 0.3s ease-out;
 
@@ -56,4 +57,17 @@
             margin-top: 5px;
         }
     }
+}
+
+@keyframes retract-footer {
+    0% {
+        bottom: -125px;
+    }
+    100% {
+        bottom: -250px;
+    }
+}
+.footer.retract {
+    bottom: -250px;
+    animation: retract-footer .5s linear;
 }

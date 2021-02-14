@@ -13,7 +13,7 @@ const Layout = props => {
     return (
         <div className={`portfolioContent ${CLASS_THEME}`}>
             <BackgroundLines />
-            {/* <Header /> */}
+            <Header />
             <section className="main-content">
                 {children}
             </section>

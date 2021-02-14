@@ -4,9 +4,10 @@ import LanguageButton from "../languageButton"
 import ModeButton from "../modeButton"
 
 
-const Footer = () => {
+const Footer = (props) => {
+
     return (
-        <footer className="footer noselect">
+        <footer className={`footer noselect ${props.className}`}>
             <div className="horizontal-rotation">
                 <div className="align-end">
                     <LanguageButton />

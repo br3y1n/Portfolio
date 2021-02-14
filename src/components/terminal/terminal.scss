@@ -8,8 +8,8 @@
     }
     to {
         opacity: 1;
-        height: 70%;
-        width: 70%;
+        height: 80%;
+        width: 80%;
     }
 }
 
@@ -17,8 +17,8 @@
     from {
         visibility: inherit;
         opacity: 1;
-        height: 70%;
-        width: 70%;
+        height: 80%;
+        width: 80%;
     }
     to {
         visibility: hidden;
@@ -40,7 +40,7 @@
         visibility: hidden;
         max-width: 1000px;
         max-height: 550px;
-        animation: out-terminal 0.4s linear;
+        animation: out-terminal .4s linear;
 
         @media (max-width: $device-sm) {
             font-size: 16px;
@@ -70,12 +70,9 @@
                 width: calc(100% - 20px);
                 height: auto;
                 text-align: center;
+
                 p {
                     display: none;
-                }
-
-                p.active {
-                    display: block;
 
                     span {
                         display: block;
@@ -85,6 +82,10 @@
                             padding: 10px 0px;
                         }
                     }
+                }
+
+                p.active {
+                    display: block;
                 }
             }
 

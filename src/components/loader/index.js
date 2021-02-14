@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { useStaticQuery, graphql } from "gatsby"
 import ParticleText from '../particleText'
@@ -15,40 +15,18 @@ const Loader = props => {
             }
         }`),
         language = useSelector(({ language }) => language),
-        { className, hideLoader } = props,
-        { logoText } = terminalLoader[language],
-        [showText, setShowText] = useState(false),
-        [showLogo, setShowLogo] = useState({ background: false, svg: false }),
-        [finish, setFinish] = useState(false)
-
-    useEffect(() => {
-        if (className.includes('active') && !showText && !finish) {
-            setTimeout(() => {
-                setShowLogo({ background: true, svg: false })
-                setTimeout(() => {
-                    setShowLogo({ background: true, svg: true })
-                    setTimeout(() => {
-                        setShowText(true)
-                        setTimeout(() => {
-                            setFinish(true)
-                            setTimeout(() => { hideLoader() }, 100)
-                        }, 1500)
-                    }, 200)
-                }, 700)
-            }, 1)
-        }
-    }, [className, showText, finish, hideLoader])
-
+        { className } = props,
+        { logoText } = terminalLoader[language]
 
     return (
         <div className={className}>
             <div className="logo-image">
-                <div className={`logoContainer ${showLogo.background && !finish ? 'active' : ''}`}>
+                <div className="logoContainer">
                     <div className="backBackground"></div>
-                    <div className={`middleBackground ${showLogo.background ? 'rotate' : ''}`}></div>
-                    <div className={`frontBackground ${showLogo.background ? 'rotate' : ''}`} ></div>
+                    <div className="middleBackground"></div>
+                    <div className="frontBackground"></div>
                 </div>
-                <div className={`svgContainer ${showLogo.svg && !finish ? 'active' : ''}`}>
+                <div className="svgContainer">
                     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="m94.88 145.28c4.81 0 9.47 0.07 14.14-0.03 1.73-0.04 3.48-0.31 5.16-0.73 4.64-1.17 6.9-4.17 6.99-8.99 0.08-4.51-2.09-8.1-6.49-9.02-4.43-0.93-9.05-1-13.6-1.33-2.03-0.15-4.08-0.03-6.37-0.03v-53.06c2.48-0.36 4.86-0.54 7.17-1.08 5.76-1.34 8.64-4.44 9.23-9.61 0.55-4.8-1.45-7.99-6.98-10.86 10.74-16 21.46-31.98 32.15-47.9 31.79 11.15 38.22 63.28 5.13 86.27 2.82 1.66 5.59 3.27 8.34 4.92 15.09 9.09 22.17 22.95 23.33 40.07 0.99 14.64-1.49 28.53-10.68 40.51-9.57 12.47-22.21 19.84-37.88 21.38-9.74 0.96-19.56 1.16-29.63 1.72-0.01-17.68-0.01-34.73-0.01-52.23z" />
@@ -60,7 +38,7 @@ const Loader = props => {
                 </div>
             </div>
             <div className="logo-text">
-                <ParticleText className={showText && !finish ? 'active' : ''} text={logoText} height={350} ratio={0.5} lineRange={60} />
+                <ParticleText text={logoText} height={350} ratio={0.5} lineRange={60} />
             </div>
         </div >
     )

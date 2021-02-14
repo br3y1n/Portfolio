@@ -8,6 +8,7 @@ const BackgroundLines = () => {
             <span className="line-one"></span>
             <span className="line-two"></span>
             <span className="line-three"></span>
+            <span className="line-four"></span>
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './typing.scss'
+import { chainEvents } from '../../assets/helpers/chainEvents'
 
 const _scrollElement = targetElement => {
 
@@ -12,13 +13,10 @@ const _scrollElement = targetElement => {
             CHILDREN_OFFSET = offsetTop + offsetHeight,
             SCROLLABLE_RANGE = CHILDREN_OFFSET - PARENT_HEIGHT
 
-        if (SCROLLABLE_RANGE > 0) {
+        if (SCROLLABLE_RANGE > 0)
             parent.scroll({ left: 0, top: SCROLLABLE_RANGE, behavior: 'smooth' })
-        }
-
     }
 }
-
 
 const TypingConsole = props => {
 
@@ -31,11 +29,17 @@ const TypingConsole = props => {
 
     const _processWait = () => {
         const { executionTime, delayNext, callback } = data
-        setTimeout(() => {
-            setShow(true)
-            _scrollElement(myRef.current)
-            setTimeout(() => { callback() }, delayNext)
-        }, executionTime)
+
+        chainEvents([
+            [
+                () => {
+                    setShow(true)
+                    _scrollElement(myRef.current)
+                },
+                executionTime
+            ],
+            [callback, delayNext]
+        ])
     }
 
 
@@ -52,7 +56,6 @@ const TypingConsole = props => {
                         CURRENT_LENGHT = CURRENT_TYPING.length,
                         UPDATE_TEXT = `${CURRENT_TYPING}${TYPING_TXT.substr(CURRENT_LENGHT, 1)}`
 
-                    _scrollElement(myRef.current)
                     setCurrentTyping(UPDATE_TEXT)
 
                     if (CURRENT_LENGHT < CHARACTERS)
@@ -64,10 +67,16 @@ const TypingConsole = props => {
         updateCurrentTyping(currentTyping)
         setShow(true)
         setTyping(true)
-        setTimeout(() => {
-            setTyping(false)
-            setTimeout(() => { callback() }, delayNext)
-        }, executionTime)
+        chainEvents([
+            [
+                () => {
+                    setTyping(false)
+                    _scrollElement(myRef.current)
+                },
+                executionTime
+            ],
+            [callback, delayNext]
+        ])
     }
 
     const _consoleEffectStart = () => {
@@ -87,25 +96,28 @@ const TypingConsole = props => {
         const
             dataElement = data.returnElement,
             PARENT_ELEMENT = dataElement.parentElement,
+            HAS_PARENT_ELEMENT = PARENT_ELEMENT && PARENT_ELEMENT.trim(),
             elements = dataElement.childrenElements.childrens.map((paragraph, key) => {
 
-                const CHILDREN_ELEMENT = dataElement.childrenElements.childrenElement
+                const
+                    CHILDREN_ELEMENT = dataElement.childrenElements.childrenElement,
+                    HAS_CONTENT = paragraph.content && paragraph.content[0],
+                    HAS_CHILDREN_ELEMENT = CHILDREN_ELEMENT && CHILDREN_ELEMENT.trim()
 
-                return paragraph.content && paragraph.content[0]
-                    ? CHILDREN_ELEMENT && CHILDREN_ELEMENT.trim()
+                return HAS_CONTENT
+                    ? HAS_CHILDREN_ELEMENT
                         ? React.createElement(CHILDREN_ELEMENT.trim(), { key: key }, paragraph.content[0].value)
                         : paragraph.content[0].value
                     : paragraph
             })
 
 
-        return PARENT_ELEMENT && PARENT_ELEMENT.trim()
+        return HAS_PARENT_ELEMENT
             ? React.createElement(
                 PARENT_ELEMENT.trim(),
                 { className: `${typing ? 'typicalWrapper' : ''} ${show ? 'active' : ''}`, ref: myRef },
-                typing
-                    ? currentTyping
-                    : elements)
+                typing ? currentTyping : elements
+            )
             : <>{elements}</>
     }
 

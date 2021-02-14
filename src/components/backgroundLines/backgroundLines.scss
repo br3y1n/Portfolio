@@ -15,6 +15,10 @@
         .line-three {
             background-color: themed("primary-color");
         }
+
+        .line-four {
+            background-color: themed("primary-color");
+        }
     }
     position: fixed;
     top: 0;
@@ -31,15 +35,15 @@
 
     .line-one {
         top: 50%;
-        left: -170px;
+        left: -20%;
         -webkit-transform: rotate(28deg) scaleX(1);
         transform: rotate(28deg) scaleX(1);
         width: 50%;
     }
 
     .line-two {
-        top: 150px;
-        left: 50%;
+        top: 10%;
+        left: 55%;
         -webkit-transform: rotate(-28deg) scaleX(1);
         transform: rotate(-28deg) scaleX(1);
         width: 50%;
@@ -47,9 +51,17 @@
 
     .line-three {
         bottom: 40%;
-        right: -300px;
+        right: -20%;
         -webkit-transform: rotate(28deg) scaleX(1);
         transform: rotate(28deg) scaleX(1);
+        width: 50%;
+    }
+
+    .line-four {
+        bottom: 5%;
+        right: 30%;
+        -webkit-transform: rotate(-28deg) scaleX(1);
+        transform: rotate(-28deg) scaleX(1);
         width: 50%;
     }
 }
