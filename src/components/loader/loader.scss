@@ -10,7 +10,7 @@
 }
 
 .loader {
-    display: none;
+    display: block;
     width: 80%;
     height: auto;
     margin: auto;
@@ -174,10 +174,6 @@
             }
         }
     }
-}
-
-.loader.active {
-    display: block;
 }
 
 .loader.retract {

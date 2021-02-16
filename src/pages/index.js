@@ -27,8 +27,8 @@ const LoaderPage = () => {
 
     return (
         <div className="loader-page noselect">
-            <Terminal className={`terminal ${showTerminal ? 'active' : ''}`} hideTerminal={_hideTerminal} />
-            <Loader className={`loader ${showLoader ? 'active' : ''} ${retract ? 'retract' : ''}`} />
+            {!showLoader && <Terminal className={`terminal ${showTerminal ? 'active' : ''}`} hideTerminal={_hideTerminal} />}
+            { showLoader && <Loader className={`loader ${retract ? 'retract' : ''}`} />}
             <Footer className={retract ? 'retract' : ''} />
         </div>
     )
