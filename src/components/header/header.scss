@@ -1,396 +1,480 @@
 @import "../../assets/css/themes";
 
+@keyframes moveTopXToBurger {
+    from {
+        transform: rotate(135deg) translate(-0.35rem, -0.36rem);
+    }
+    to {
+        transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+    }
+}
+
+@keyframes moveMiddleXToBurger {
+    from {
+        opacity: 0;
+        padding-bottom: 0;
+    }
+    to {
+        opacity: 1;
+        padding-bottom: 70%;
+    }
+}
+
+@keyframes moveBottomXToBurger {
+    from {
+        transform: rotate(45deg) translate(0.3em, -0.3rem);
+    }
+    to {
+        transform: rotate(90deg) translate(0.64rem, -0.48rem);
+    }
+}
+
+@keyframes moveTopBurgerToX {
+    from {
+        transform: translate(0px, 0px);
+    }
+    to {
+        transform: rotate(45deg) translate(8px, 7px);
+    }
+}
+
+@keyframes moveMiddleBurgerToX {
+    from {
+        opacity: 1;
+        width: 70%;
+    }
+    to {
+        opacity: 0;
+        width: 0;
+    }
+}
+
+@keyframes moveBottomBurgerToX {
+    from {
+        transform: translate(0px, 0px);
+    }
+    to {
+        transform: rotate(-45deg) translate(8px, -7px);
+    }
+}
+
+@include keyframes("moveTopBurgerToLogo", true) {
+    0% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+        background: themed("quaternary-color");
+    }
+    40% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
+        background: themed("quaternary-color");
+    }
+    50% {
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        border-radius: 0;
+        transform: rotate(-90deg) translate(0, 0);
+        border: 2px solid themed("quaternary-color");
+    }
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
+@include keyframes("moveMiddleBurgerToLogo", true) {
+    0% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(90deg) translate(0.01rem, -0.48rem);
+        background: themed("quaternary-color");
+    }
+    40% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
+        background: themed("quaternary-color");
+    }
+    50% {
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        border-radius: 0;
+        transform: rotate(-90deg) translate(0, 0);
+        border: 2px solid themed("quaternary-color");
+    }
+    75% {
+        transform: rotate(-150deg);
+    }
+}
+
+@include keyframes("moveBottomBurgerToLogo", true) {
+    0% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(90deg) translate(0.64rem, -0.48rem);
+        background: themed("quaternary-color");
+    }
+    40% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
+
+        background: themed("quaternary-color");
+    }
+    50% {
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        border-radius: 0;
+        transform: rotate(-90deg) translate(0, 0);
+        border: 2px solid themed("quaternary-color");
+    }
+    100% {
+        transform: rotate(-210deg);
+    }
+}
+
+@include keyframes("moveTopLogoToBurger", true) {
+    0% {
+        border-radius: 0;
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        transform: rotate(-90deg) translate(0, 0);
+        border: 2px solid themed("quaternary-color");
+        background: -prefix-linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
+        background: linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
+    }
+    50% {
+        border-radius: 0;
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        transform: rotate(-90deg) translate(0, 0);
+        border: 2px solid themed("quaternary-color");
+        background: -prefix-linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
+        background: linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
+    }
+    60% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
+    }
+    100% {
+        transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+    }
+}
+
+@include keyframes("moveMiddleLogoToBurger", true) {
+    0% {
+        border-radius: 0;
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        transform: rotate(-150deg) translate(0, 0);
+        border: 2px solid themed("quaternary-color");
+        background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+        background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+    }
+    25% {
+        border-radius: 0;
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        transform: rotate(-150deg) translate(0, 0);
+        border: 2px solid themed("quaternary-color");
+        background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+        background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+    }
+    50% {
+        border-radius: 0;
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        transform: rotate(-90deg) translate(0, 0);
+        background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+        background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+        border: 2px solid themed("quaternary-color");
+    }
+    60% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
+    }
+    100% {
+        transform: rotate(90deg) translate(0.01rem, -0.48rem);
+    }
+}
+
+@include keyframes("moveBottomLogoToBurger", true) {
+    0% {
+        border-radius: 0;
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        transform: rotate(-210deg) translate(0, 0);
+        background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+        background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+        border: 2px solid themed("quaternary-color");
+    }
+    50% {
+        border-radius: 0;
+        width: calc(40% - 4px);
+        padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+        transform: rotate(-90deg) translate(0, 0);
+        background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+        background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+        border: 2px solid themed("quaternary-color");
+    }
+    60% {
+        width: 0.4rem;
+        padding-bottom: 70%;
+        border: none;
+        border-radius: 1rem;
+        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
+    }
+    100% {
+        transform: rotate(90deg) translate(0.64rem, -0.48rem);
+    }
+}
+
+@keyframes showIconSvg {
+    0% {
+        opacity: 0;
+    }
+    70% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes hideIconSvg {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 header {
     position: fixed;
     width: 100%;
     height: 0%;
 
     .menu,
-    .burger {
+    .icon {
         display: none;
     }
 }
 
 header.active {
-    .burger {
+    .icon {
         position: fixed;
         top: 1rem;
-        text-align: center;
         width: 3.5rem;
         height: 3.5rem;
         left: calc(50% - 1.75rem);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: none;
         cursor: pointer;
 
-        .logo-image {
-            height: auto;
-            width: 90%;
-            padding: 5% 0;
+        .svgContainer {
             display: none;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            opacity: 0;
-
-            .logoContainer {
-                width: 50%;
-                height: auto;
-                padding-bottom: calc((50% * 100) / 57.6);
-                position: relative;
-                opacity: 1;
-                visibility: inherit;
-
-                div {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: calc(100% - 4px);
-                    padding-bottom: calc(calc((100% * 500) / 288) - 4px);
-                    @include themify($themes-color) {
-                        border: 2px solid themed("quaternary-color");
-                    }
-                }
-
-                @include themify($themes-color) {
-                    .backBackground {
-                        background: -prefix-linear-gradient(
-                            270deg,
-                            themed("primary-color"),
-                            themed("quaternary-color")
-                        );
-                        background: linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
-                    }
-
-                    .middleBackground {
-                        background: -prefix-linear-gradient(
-                            135deg,
-                            themed("primary-color"),
-                            themed("quaternary-color")
-                        );
-                        background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
-                    }
-
-                    .frontBackground {
-                        background: -prefix-linear-gradient(
-                            135deg,
-                            themed("primary-color"),
-                            themed("quaternary-color")
-                        );
-                        background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
-                    }
-                }
-            }
-            .svgContainer {
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                display: flex;
-                opacity: 0;
-                visibility: hidden;
-
-                svg {
-                    width: 40%;
-                    height: auto;
-                    margin: auto;
-                    display: block;
-                    @include themify($themes-color) {
-                        fill: themed("quaternary-color");
-                    }
-                }
-            }
-        }
-
-        .icon {
-            width: 60%;
-            height: 60%;
-            margin: auto;
-
-            .top,
-            .middle,
-            .bottom {
-                width: 100%;
-                height: 0.4rem;
-                margin: 0.23rem 0;
-                border-radius: 1rem;
-                opacity: 1;
-                @include themify($themes-color) {
-                    background-color: themed("quaternary-color");
-                }
-                -webkit-transition: background-color 0.3s ease-out;
-                transition: background-color 0.3s ease-out;
-            }
-
-            @keyframes moveTopToBurger {
-                from {
-                    transform: rotate(45deg) translate(8px, 7px);
-                }
-                to {
-                    transform: rotate(0deg) translate(0px, 0px);
-                }
-            }
-
-            @keyframes moveMiddleToBurger {
-                from {
-                    opacity: 0;
-                    width: 0;
-                }
-                to {
-                    opacity: 1;
-                    width: 100%;
-                }
-            }
-
-            @keyframes moveBottomToBurger {
-                from {
-                    transform: rotate(-45deg) translate(8px, -7px);
-                }
-                to {
-                    transform: rotate(0deg) translate(0px, 0px);
-                }
-            }
-
-            .top {
-                animation: moveTopToBurger 0.2s linear;
-            }
-            .middle {
-                opacity: 1;
-                width: 100%;
-                animation: moveMiddleToBurger 0.2s linear;
-            }
-            .bottom {
-                animation: moveBottomToBurger 0.2s linear;
-            }
         }
     }
 
-    .burger.animate-logo {
-        .logo-image {
-            display: flex;
+    .icon.burger {
+        display: block;
+        .top,
+        .middle,
+        .bottom {
+            width: 70%;
+            height: 0.4rem;
+            margin: 0.25rem auto;
+            border-radius: 1rem;
+            @include themify($themes-color) {
+                background-color: themed("quaternary-color");
+            }
+            -webkit-transition: background-color 0.3s ease-out;
+            transition: background-color 0.3s ease-out;
+        }
+
+        :first-child {
+            margin-top: 0.9rem;
+        }
+    }
+
+    .icon.logo {
+        display: block;
+        .top,
+        .middle,
+        .bottom {
             opacity: 1;
-        }
+            position: absolute;
+            top: calc(50% - calc(calc((40% * 500) / 288) / 2));
+            left: calc(50% - calc(40% / 2));
 
-        .logo-image.rotate {
-            @keyframes showLogo {
-                from {
-                    opacity: 0;
-                    visibility: hidden;
-                }
-                to {
-                    opacity: 1;
-                    visibility: inherit;
-                }
-            }
-
-            .logoContainer {
-                animation: showLogo 0.1s linear;
-
-                @include themify($themes-color) {
-                    @keyframes rotateMiddle {
-                        from {
-                            transform: rotate(-90deg);
-                        }
-                        to {
-                            transform: rotate(-150deg);
-                        }
-                    }
-
-                    @keyframes rotateFront {
-                        0% {
-                            transform: rotate(-90deg);
-                        }
-                        100% {
-                            transform: rotate(-210deg);
-                        }
-                    }
-
-                    .backBackground {
-                        transform: rotate(-90deg);
-                    }
-
-                    .middleBackground {
-                        transform: rotate(-150deg);
-                        animation: rotateMiddle 0.4s linear;
-                    }
-
-                    .frontBackground {
-                        transform: rotate(-210deg);
-                        animation: rotateFront 0.8s linear;
-                    }
-                }
-            }
-
-            @keyframes showSvg {
-                0% {
-                    opacity: 0;
-                    visibility: hidden;
-                }
-                70% {
-                    opacity: 0;
-                    visibility: hidden;
-                }
-                100% {
-                    opacity: 1;
-                    visibility: inherit;
-                }
-            }
-
-            .svgContainer {
-                opacity: 1;
-                visibility: inherit;
-                animation: showSvg 0.4s linear;
-            }
-        }
-
-        .logo-image.return {
-            @keyframes hideLogo {
-                0% {
-                    opacity: 1;
-                    visibility: inherit;
-                }
-                80% {
-                    opacity: 1;
-                    visibility: inherit;
-                }
-                100% {
-                    opacity: 0;
-                    visibility: hidden;
-                }
-            }
-            .logoContainer {
-                opacity: 0;
-                visibility: hidden;
-                animation: hideLogo 0.5s linear;
-
-                @include themify($themes-color) {
-                    // @keyframes rotateMiddleReverse {
-                    //     0% {
-                    //         transform: rotate(-150deg);
-                    //     }
-                    //     50% {
-                    //         transform: rotate(-150deg);
-                    //     }
-                    //     100% {
-                    //         transform: rotate(-90deg);
-                    //     }
-                    // }
-
-                    @keyframes rotateMiddleReverse {
-                        0% {
-                            transform: rotate(-150deg);
-                        }
-                        50% {
-                            transform: rotate(-150deg);
-                        }
-                        100% {
-                            transform: rotate(-90deg);
-                        }
-                    }
-
-                    @keyframes rotateFrontReverse {
-                        from {
-                            transform: rotate(-210deg);
-                        }
-                        to {
-                            transform: rotate(-90deg);
-                        }
-                    }
-
-                    .backBackground {
-                        transform: rotate(-90deg);
-                    }
-
-                    .middleBackground {
-                        transform: rotate(-90deg);
-                        animation: rotateMiddleReverse 0.5s linear;
-                    }
-
-                    .frontBackground {
-                        transform: rotate(-90deg);
-                        animation: rotateFrontReverse 0.5s linear;
-                    }
-                }
-            }
-            @keyframes hideSvg {
-                0% {
-                    opacity: 1;
-                    visibility: inherit;
-                }
-                100% {
-                    opacity: 0;
-                    visibility: hidden;
-                }
-            }
-
-            .svgContainer {
-                opacity: 0;
-                visibility: hidden;
-                animation: hideSvg 0.1s linear;
-            }
-        }
-    }
-}
-
-header.expand {
-    height: 100%;
-
-    .burger .icon {
-        @keyframes moveTopToX {
-            from {
-                transform: translate(0px, 0px);
-            }
-            to {
-                transform: rotate(45deg) translate(8px, 7px);
-            }
-        }
-
-        @keyframes moveMiddleToX {
-            from {
-                opacity: 1;
-                width: 100%;
-            }
-            to {
-                opacity: 0;
-                width: 0;
-            }
-        }
-
-        @keyframes moveBottomToX {
-            from {
-                transform: translate(0px, 0px);
-            }
-            to {
-                transform: rotate(-45deg) translate(8px, -7px);
+            width: 0.4rem;
+            padding-bottom: 70%;
+            border: none;
+            border-radius: 1rem;
+            @include themify($themes-color) {
+                background-color: themed("quaternary-color");
             }
         }
 
         .top {
-            transform: rotate(45deg) translate(8px, 7px);
-            animation: moveTopToX 0.2s linear;
+            transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+            animation: moveTopXToBurger 0.2s linear;
         }
         .middle {
-            width: 0;
-            opacity: 0;
-            animation: moveMiddleToX 0.2s linear;
+            transform: rotate(90deg) translate(0.01rem, -0.48rem);
+            animation: moveMiddleXToBurger 0.2s linear;
         }
         .bottom {
-            transform: rotate(-45deg) translate(8px, -7px);
-            animation: moveBottomToX 0.2s linear;
+            transform: rotate(90deg) translate(0.64rem, -0.48rem);
+            animation: moveBottomXToBurger 0.2s linear;
+        }
+        .svgContainer {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            display: flex;
+            opacity: 0;
+
+            svg {
+                width: 30%;
+                height: auto;
+                margin: auto;
+                display: block;
+                @include themify($themes-color) {
+                    fill: themed("quaternary-color");
+                }
+            }
+        }
+
+        &.rotate {
+            .top {
+                border-radius: 0;
+                width: calc(40% - 4px);
+                padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+                transform: rotate(-90deg);
+                @include themify($themes-color) {
+                    animation: getThemeAnimationName("moveTopBurgerToLogo") 0.6s linear;
+                    border: 2px solid themed("quaternary-color");
+                    background: -prefix-linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
+                    background: linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
+                }
+            }
+            .middle {
+                border-radius: 0;
+                width: calc(40% - 4px);
+                padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+                transform: rotate(-150deg);
+                @include themify($themes-color) {
+                    animation: getThemeAnimationName("moveMiddleBurgerToLogo") 0.6s linear;
+                    border: 2px solid themed("quaternary-color");
+                    background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+                    background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+                }
+            }
+            .bottom {
+                border-radius: 0;
+                width: calc(40% - 4px);
+                padding-bottom: calc(calc((40% * 500) / 288) - 4px);
+                transform: rotate(-210deg);
+                @include themify($themes-color) {
+                    animation: getThemeAnimationName("moveBottomBurgerToLogo") 0.6s linear;
+                    border: 2px solid themed("quaternary-color");
+                    background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+                    background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
+                }
+            }
+
+            .svgContainer {
+                opacity: 1;
+                animation: showIconSvg 0.6s linear;
+            }
+        }
+
+        &.return {
+            .top {
+                background: black;
+                transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+                @include themify($themes-color) {
+                    animation: getThemeAnimationName("moveTopLogoToBurger") 0.6s linear;
+                    background: themed("quaternary-color");
+                }
+            }
+            .middle {
+                background: black;
+
+                transform: rotate(90deg) translate(0.01rem, -0.48rem);
+                @include themify($themes-color) {
+                    animation: getThemeAnimationName("moveMiddleLogoToBurger") 0.6s linear;
+                    background: themed("quaternary-color");
+                }
+            }
+            .bottom {
+                background: black;
+                transform: rotate(90deg) translate(0.64rem, -0.48rem);
+                @include themify($themes-color) {
+                    animation: getThemeAnimationName("moveBottomLogoToBurger") 0.6s linear;
+                    background: themed("quaternary-color");
+                }
+            }
+
+            .svgContainer {
+                opacity: 0;
+                animation: hideIconSvg 0.2s linear;
+            }
         }
     }
 
-    @include themify($themes-color) {
+    &.expand {
+        height: 100%;
+
+        .icon.logo {
+            display: none;
+        }
+
+        .icon.burger {
+            .top {
+                transform: rotate(45deg) translate(8px, 7px);
+                animation: moveTopBurgerToX 0.2s linear;
+            }
+            .middle {
+                width: 0;
+                opacity: 0;
+                animation: moveMiddleBurgerToX 0.2s linear;
+            }
+            .bottom {
+                transform: rotate(-45deg) translate(8px, -7px);
+                animation: moveBottomBurgerToX 0.2s linear;
+            }
+        }
+
         .menu {
             display: block;
-            padding-top: 4rem;
+            padding-top: 5rem;
             width: 100%;
             height: 100%;
-            // background-color: themed("frame-color");
 
             .container {
                 width: 100%;
-                height: calc(calc(100% - 110px) - 4rem);
+                height: calc(calc(100% - 110px) - 5rem);
                 display: flex;
 
                 nav {
@@ -408,7 +492,9 @@ header.expand {
                         transition: color 0.3s ease-out;
                         position: relative;
                         text-decoration: none;
-                        color: themed("quaternary-color");
+                        @include themify($themes-color) {
+                            color: themed("quaternary-color");
+                        }
                     }
                     a:before {
                         top: -5px;
@@ -426,17 +512,21 @@ header.expand {
                         left: 0;
                         width: 100%;
                         height: 1px;
-                        background: themed("opaque-color");
                         content: "";
                         opacity: 0;
                         -webkit-transition: opacity 0.3s ease-out, -webkit-transform 0.3s ease-out;
                         transition: opacity 0.3s ease-out, -webkit-transform 0.3s ease-out;
                         transition: opacity 0.3s ease-out, transform 0.3s ease-out;
                         transition: opacity 0.3s ease-out, transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+                        @include themify($themes-color) {
+                            background: themed("opaque-color");
+                        }
                     }
                     a:hover,
                     a.active {
-                        color: themed("opaque-color");
+                        @include themify($themes-color) {
+                            color: themed("opaque-color");
+                        }
                     }
                     a:hover::before,
                     a:hover::after,
@@ -451,8 +541,10 @@ header.expand {
                 .middle {
                     height: calc(100% - 20px);
                     width: 2px;
-                    background-color: themed("opaque-color");
                     border-radius: 1px;
+                    @include themify($themes-color) {
+                        background-color: themed("opaque-color");
+                    }
                 }
 
                 .socials {
@@ -461,7 +553,6 @@ header.expand {
                     height: calc(100% - 20px);
                 }
             }
-
             .mode-buttons {
                 width: 100%;
                 height: 110px;

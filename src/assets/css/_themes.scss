@@ -37,6 +37,7 @@ $device-lg: 1200px;
 @mixin themify($themes) {
   @each $theme, $values in $themes {
     .theme-#{$theme} & {
+      $themeName: $theme !global;
       $theme-map: () !global;
       @each $key, $map in $values {
         $value: map-get(map-get($themes, $theme), "#{$key}");
@@ -49,10 +50,58 @@ $device-lg: 1200px;
       }
       @content;
       $theme-map: null !global;
+      $themeName: null !global;
     }
   }
 }
 
 @function themed($key) {
   @return map-get($theme-map, $key);
+}
+
+@function getThemeAnimationName($animationName) {
+  @return #{$themeName}-#{$animationName};
+}
+
+@mixin keyframes($name, $withTheme: false) {
+  @if ($withTheme) {
+    @each $theme, $values in $themes-color {
+      $theme-map: () !global;
+      @each $key, $map in $values {
+        $value: map-get(map-get($themes-color, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @-webkit-keyframes #{$theme}-#{$name} {
+        @content;
+      }
+      @-moz-keyframes #{$theme}-#{$name} {
+        @content;
+      }
+      @-o-keyframes #{$theme}-#{$name} {
+        @content;
+      }
+      @keyframes #{$theme}-#{$name} {
+        @content;
+      }
+      $theme-map: null !global;
+    }
+  } @else {
+    @-webkit-keyframes #{$name} {
+      @content;
+    }
+    @-moz-keyframes #{$name} {
+      @content;
+    }
+    @-o-keyframes #{$name} {
+      @content;
+    }
+    @keyframes #{$name} {
+      @content;
+    }
+  }
 }
