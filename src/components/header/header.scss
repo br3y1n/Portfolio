@@ -2,10 +2,7 @@
 
 @keyframes moveTopXToBurger {
     from {
-        transform: rotate(135deg) translate(-0.35rem, -0.36rem);
-    }
-    to {
-        transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+        transform: rotate(135deg) translate(-0.13rem, -0.64rem);
     }
 }
 
@@ -14,65 +11,48 @@
         opacity: 0;
         padding-bottom: 0;
     }
-    to {
-        opacity: 1;
-        padding-bottom: 70%;
-    }
 }
 
 @keyframes moveBottomXToBurger {
     from {
-        transform: rotate(45deg) translate(0.3em, -0.3rem);
-    }
-    to {
-        transform: rotate(90deg) translate(0.64rem, -0.48rem);
+        transform: rotate(45deg) translate(0.62rem, -0.15rem);
     }
 }
 
 @keyframes moveTopBurgerToX {
     from {
-        transform: translate(0px, 0px);
-    }
-    to {
-        transform: rotate(45deg) translate(8px, 7px);
+        transform: translate(0rem, 0rem);
     }
 }
 
 @keyframes moveMiddleBurgerToX {
     from {
         opacity: 1;
-        width: 70%;
-    }
-    to {
-        opacity: 0;
-        width: 0;
+        width: 50%;
     }
 }
 
 @keyframes moveBottomBurgerToX {
     from {
-        transform: translate(0px, 0px);
-    }
-    to {
-        transform: rotate(-45deg) translate(8px, -7px);
+        transform: translate(0rem, 0rem);
     }
 }
 
 @include keyframes("moveTopBurgerToLogo", true) {
     0% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+        transform: rotate(90deg) translate(-0.15rem, -0.56rem);
         background: themed("quaternary-color");
     }
     40% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
+        transform: rotate(-90deg) translate(-0.32rem, 0.54rem);
         background: themed("quaternary-color");
     }
     50% {
@@ -89,19 +69,19 @@
 
 @include keyframes("moveMiddleBurgerToLogo", true) {
     0% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(90deg) translate(0.01rem, -0.48rem);
+        transform: rotate(90deg) translate(0.33rem, -0.56rem);
         background: themed("quaternary-color");
     }
     40% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
+        transform: rotate(-90deg) translate(-0.33rem, 0.54rem);
         background: themed("quaternary-color");
     }
     50% {
@@ -118,20 +98,19 @@
 
 @include keyframes("moveBottomBurgerToLogo", true) {
     0% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(90deg) translate(0.64rem, -0.48rem);
+        transform: rotate(90deg) translate(0.82rem, -0.56rem);
         background: themed("quaternary-color");
     }
     40% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
-
+        transform: rotate(-90deg) translate(-0.34rem, 0.54rem);
         background: themed("quaternary-color");
     }
     50% {
@@ -166,14 +145,11 @@
         background: linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
     }
     60% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
-    }
-    100% {
-        transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+        transform: rotate(-90deg) translate(-0.32rem, 0.54rem);
     }
 }
 
@@ -206,14 +182,11 @@
         border: 2px solid themed("quaternary-color");
     }
     60% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
-    }
-    100% {
-        transform: rotate(90deg) translate(0.01rem, -0.48rem);
+        transform: rotate(-90deg) translate(-0.33rem, 0.54rem);
     }
 }
 
@@ -237,14 +210,11 @@
         border: 2px solid themed("quaternary-color");
     }
     60% {
-        width: 0.4rem;
-        padding-bottom: 70%;
+        width: 0.25rem;
+        padding-bottom: 50%;
         border: none;
         border-radius: 1rem;
-        transform: rotate(-90deg) translate(-0.03rem, 0.48rem);
-    }
-    100% {
-        transform: rotate(90deg) translate(0.64rem, -0.48rem);
+        transform: rotate(-90deg) translate(-0.34rem, 0.54rem);
     }
 }
 
@@ -278,12 +248,46 @@ header {
     .icon {
         display: none;
     }
+
+    .backDoor {
+        opacity: 0;
+        visibility: hidden;
+        display: block;
+        position: fixed;
+        width: 300rem;
+        height: 300rem;
+        left: calc(50% - 150rem);
+        top: -357rem;
+        z-index: -1;
+    }
+
+    .backDoor::after {
+        display: block;
+        transform: translateY(480rem) rotate(45deg);
+        @include themify($themes-color) {
+            background-color: themed("frame-color");
+        }
+        height: 100%;
+        width: 100%;
+        box-shadow: 0px 0px 15px 5px #00000094;
+        content: "";
+        transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
 }
 
 header.active {
+    .backDoor {
+        opacity: 1;
+        visibility: inherit;
+    }
+
+    .backDoor::after {
+        transform: translateY(0rem) rotate(45deg);
+    }
+
     .icon {
         position: fixed;
-        top: 1rem;
+        top: 0.4rem;
         width: 3.5rem;
         height: 3.5rem;
         left: calc(50% - 1.75rem);
@@ -300,9 +304,9 @@ header.active {
         .top,
         .middle,
         .bottom {
-            width: 70%;
-            height: 0.4rem;
-            margin: 0.25rem auto;
+            width: 50%;
+            height: 0.25rem;
+            margin: 0.23rem auto;
             border-radius: 1rem;
             @include themify($themes-color) {
                 background-color: themed("quaternary-color");
@@ -312,7 +316,7 @@ header.active {
         }
 
         :first-child {
-            margin-top: 0.9rem;
+            margin-top: 1.15rem;
         }
     }
 
@@ -326,8 +330,8 @@ header.active {
             top: calc(50% - calc(calc((40% * 500) / 288) / 2));
             left: calc(50% - calc(40% / 2));
 
-            width: 0.4rem;
-            padding-bottom: 70%;
+            width: 0.25rem;
+            padding-bottom: 50%;
             border: none;
             border-radius: 1rem;
             @include themify($themes-color) {
@@ -336,15 +340,15 @@ header.active {
         }
 
         .top {
-            transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+            transform: rotate(90deg) translate(-0.15rem, -0.56rem);
             animation: moveTopXToBurger 0.2s linear;
         }
         .middle {
-            transform: rotate(90deg) translate(0.01rem, -0.48rem);
+            transform: rotate(90deg) translate(0.33rem, -0.56rem);
             animation: moveMiddleXToBurger 0.2s linear;
         }
         .bottom {
-            transform: rotate(90deg) translate(0.64rem, -0.48rem);
+            transform: rotate(90deg) translate(0.82rem, -0.56rem);
             animation: moveBottomXToBurger 0.2s linear;
         }
         .svgContainer {
@@ -372,7 +376,7 @@ header.active {
                 padding-bottom: calc(calc((40% * 500) / 288) - 4px);
                 transform: rotate(-90deg);
                 @include themify($themes-color) {
-                    animation: getThemeAnimationName("moveTopBurgerToLogo") 0.6s linear;
+                    animation: getThemeAnimationName("moveTopBurgerToLogo") 0.3s linear;
                     border: 2px solid themed("quaternary-color");
                     background: -prefix-linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
                     background: linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
@@ -384,7 +388,7 @@ header.active {
                 padding-bottom: calc(calc((40% * 500) / 288) - 4px);
                 transform: rotate(-150deg);
                 @include themify($themes-color) {
-                    animation: getThemeAnimationName("moveMiddleBurgerToLogo") 0.6s linear;
+                    animation: getThemeAnimationName("moveMiddleBurgerToLogo") 0.3s linear;
                     border: 2px solid themed("quaternary-color");
                     background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
                     background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
@@ -396,7 +400,7 @@ header.active {
                 padding-bottom: calc(calc((40% * 500) / 288) - 4px);
                 transform: rotate(-210deg);
                 @include themify($themes-color) {
-                    animation: getThemeAnimationName("moveBottomBurgerToLogo") 0.6s linear;
+                    animation: getThemeAnimationName("moveBottomBurgerToLogo") 0.3s linear;
                     border: 2px solid themed("quaternary-color");
                     background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
                     background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
@@ -411,27 +415,23 @@ header.active {
 
         &.return {
             .top {
-                background: black;
-                transform: rotate(90deg) translate(-0.64rem, -0.48rem);
+                transform: rotate(90deg) translate(-0.15rem, -0.56rem);
                 @include themify($themes-color) {
-                    animation: getThemeAnimationName("moveTopLogoToBurger") 0.6s linear;
+                    animation: getThemeAnimationName("moveTopLogoToBurger") 0.3s linear;
                     background: themed("quaternary-color");
                 }
             }
             .middle {
-                background: black;
-
-                transform: rotate(90deg) translate(0.01rem, -0.48rem);
+                transform: rotate(90deg) translate(0.33rem, -0.56rem);
                 @include themify($themes-color) {
-                    animation: getThemeAnimationName("moveMiddleLogoToBurger") 0.6s linear;
+                    animation: getThemeAnimationName("moveMiddleLogoToBurger") 0.3s linear;
                     background: themed("quaternary-color");
                 }
             }
             .bottom {
-                background: black;
-                transform: rotate(90deg) translate(0.64rem, -0.48rem);
+                transform: rotate(90deg) translate(0.82rem, -0.56rem);
                 @include themify($themes-color) {
-                    animation: getThemeAnimationName("moveBottomLogoToBurger") 0.6s linear;
+                    animation: getThemeAnimationName("moveBottomLogoToBurger") 0.3s linear;
                     background: themed("quaternary-color");
                 }
             }
@@ -446,13 +446,17 @@ header.active {
     &.expand {
         height: 100%;
 
+        .backDoor::after {
+            transform: translateY(250rem) rotate(45deg);
+        }
+
         .icon.logo {
             display: none;
         }
 
         .icon.burger {
             .top {
-                transform: rotate(45deg) translate(8px, 7px);
+                transform: rotate(45deg) translate(0.3rem, 0.4rem);
                 animation: moveTopBurgerToX 0.2s linear;
             }
             .middle {
@@ -461,7 +465,7 @@ header.active {
                 animation: moveMiddleBurgerToX 0.2s linear;
             }
             .bottom {
-                transform: rotate(-45deg) translate(8px, -7px);
+                transform: rotate(-45deg) translate(0.32rem, -0.4rem);
                 animation: moveBottomBurgerToX 0.2s linear;
             }
         }

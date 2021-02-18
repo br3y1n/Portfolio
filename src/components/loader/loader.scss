@@ -1,11 +1,46 @@
 @import "../../assets/css/themes";
 
-@keyframes moveLoader {
+@keyframes showElement {
     0% {
-        transform: translateY(0);
+        opacity: 0;
+        visibility: hidden;
+    }
+    70% {
+        opacity: 0;
+        visibility: hidden;
     }
     100% {
-        transform: translateY(-150vh);
+        opacity: 1;
+        visibility: inherit;
+    }
+}
+
+@keyframes showLogo {
+    from {
+        opacity: 0;
+        visibility: hidden;
+    }
+    to {
+        opacity: 1;
+        visibility: inherit;
+    }
+}
+
+@keyframes rotateMiddle {
+    from {
+        transform: rotate(-90deg);
+    }
+    to {
+        transform: rotate(-150deg);
+    }
+}
+
+@keyframes rotateFront {
+    from {
+        transform: rotate(-90deg);
+    }
+    to {
+        transform: rotate(-210deg);
     }
 }
 
@@ -28,21 +63,7 @@
         align-items: center;
         overflow: hidden;
         margin: auto;
-
-        @keyframes showCanvas {
-            0% {
-                opacity: 0;
-                visibility: hidden;
-            }
-            70% {
-                opacity: 0;
-                visibility: hidden;
-            }
-            100% {
-                opacity: 1;
-                visibility: inherit;
-            }
-        }
+        transition: transform 0.6s linear;
 
         canvas {
             @include themify($themes-color) {
@@ -53,7 +74,7 @@
             background: transparent;
             opacity: 1;
             visibility: inherit;
-            animation: showCanvas 1.2s linear;
+            animation: showElement 1.2s linear;
         }
     }
 
@@ -66,17 +87,6 @@
         align-items: center;
         position: relative;
 
-        @keyframes showLogo {
-            from {
-                opacity: 0;
-                visibility: hidden;
-            }
-            to {
-                opacity: 1;
-                visibility: inherit;
-            }
-        }
-
         .logoContainer {
             width: 15%;
             height: auto;
@@ -85,8 +95,11 @@
             opacity: 1;
             visibility: inherit;
             animation: showLogo 0.4s linear;
+            transition: transform 0.6s linear;
 
-            div {
+            .backBackground,
+            .middleBackground,
+            .frontBackground {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -98,78 +111,49 @@
                 }
             }
 
-            @include themify($themes-color) {
-                @keyframes rotateMiddle {
-                    from {
-                        transform: rotate(-90deg);
-                    }
-                    to {
-                        transform: rotate(-150deg);
-                    }
-                }
-
-                @keyframes rotateFront {
-                    from {
-                        transform: rotate(-90deg);
-                    }
-                    to {
-                        transform: rotate(-210deg);
-                    }
-                }
-
-                .backBackground {
+            .backBackground {
+                transform: rotate(-90deg);
+                @include themify($themes-color) {
                     background: -prefix-linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
                     background: linear-gradient(270deg, themed("primary-color"), themed("quaternary-color"));
-                    transform: rotate(-90deg);
                 }
+            }
 
-                .middleBackground {
+            .middleBackground {
+                transform: rotate(-150deg);
+                animation: rotateMiddle 0.4s linear;
+                @include themify($themes-color) {
                     background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
                     background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
-                    transform: rotate(-150deg);
-                    animation: rotateMiddle 0.4s linear;
                 }
+            }
 
-                .frontBackground {
+            .frontBackground {
+                transform: rotate(-210deg);
+                animation: rotateFront 0.8s linear;
+                @include themify($themes-color) {
                     background: -prefix-linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
                     background: linear-gradient(135deg, themed("primary-color"), themed("quaternary-color"));
-                    transform: rotate(-210deg);
-                    animation: rotateFront 0.8s linear;
                 }
             }
-        }
 
-        @keyframes showSvg {
-            0% {
-                opacity: 0;
-                visibility: hidden;
-            }
-            70% {
-                opacity: 0;
-                visibility: hidden;
-            }
-            100% {
+            .svgContainer {
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                display: flex;
                 opacity: 1;
                 visibility: inherit;
-            }
-        }
+                animation: showElement 1.2s linear;
 
-        .svgContainer {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            display: flex;
-            opacity: 1;
-            visibility: inherit;
-            animation: showSvg 1.2s linear;
-
-            svg {
-                width: 10%;
-                height: auto;
-                margin: auto;
-                display: block;
-                @include themify($themes-color) {
-                    fill: themed("quaternary-color");
+                svg {
+                    width: 60%;
+                    height: auto;
+                    margin: auto;
+                    display: block;
+                    @include themify($themes-color) {
+                        fill: themed("quaternary-color");
+                    }
                 }
             }
         }
@@ -177,6 +161,10 @@
 }
 
 .loader.retract {
-    transform: translateY(-150vh);
-    animation: moveLoader 0.5s linear;
+    .logo-text {
+        transform: translateX(150vw);
+    }
+    .logoContainer {
+        transform: translateX(-150vw);
+    }
 }

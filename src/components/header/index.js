@@ -62,9 +62,13 @@ const Header = () => {
         language = useSelector(({ language }) => language),
         [interval, setIntervalId] = useState({ id: null }),
         [showExpand, setShowExpand] = useState(false),
+        [flipFlopPosition, setFlipFlopPosition] = useState(0),
+        [intoIcon, setIntoIcon] = useState(false),
         [toggleIcon, setToggleIcon] = useState(''),
         { edges: itemsMenu } = querys[language],
         { edges: downloads } = querys[`download${language}`],
+        flipFlop = [true, true, false, true, false, false, false, false, false, false, false, false, false, false, false, false],
+        MAX_POSITION = flipFlop.length - 1,
         _evaluateLink = useCallback(link => {
             const
                 { id, itemName, itemTarget, itemMethod } = link.node,
@@ -82,28 +86,55 @@ const Header = () => {
                     return <Link to={`/${itemTarget}`} key={id} className={itemTarget === currentPage ? 'active' : ''} onClick={() => { setShowExpand(_toggleExpand) }}>{itemName}</Link>
             }
         }, [downloads, currentPage]),
+        _handlerInterval = () => {
+            const intervalID = setInterval(() => {
+                setFlipFlopPosition(prevRotate => {
+                    const
+                        RESTART_FROM_POSITION = 1,
+                        NEXT_POSITION = prevRotate + 1,
+                        CAN_TOGGLE = flipFlop[prevRotate]
+
+                    if (CAN_TOGGLE) setToggleIcon(prevRotate => prevRotate !== 'rotate' ? 'rotate' : 'return')
+
+                    return NEXT_POSITION > MAX_POSITION ? RESTART_FROM_POSITION : NEXT_POSITION
+                })
+
+            }, 600)
+            setIntervalId({ id: intervalID })
+        },
         _toggleExpand = prevExpand => {
 
-            if (prevExpand) {
-                let intervalID = setInterval(() => {
-                    setToggleIcon(prevRotate => prevRotate !== 'rotate' ? 'rotate' : 'return')
-                }, 7000)
-                setIntervalId({ id: intervalID })
-            }
+            if (prevExpand && !intoIcon)
+                _handlerInterval()
+
             else {
                 clearInterval(interval.id)
                 setToggleIcon('')
+                setFlipFlopPosition(intoIcon ? 4 : 0)
             }
 
             return !prevExpand
+        },
+        _handlerEnter = () => {
+            setIntoIcon(true)
+            if (!showExpand) {
+                clearInterval(interval.id)
+                setToggleIcon('return')
+                setFlipFlopPosition(4)
+            }
+        },
+        _handlerLeave = () => {
+            setIntoIcon(false)
+            if (!showExpand) {
+                setToggleIcon('rotate')
+                _handlerInterval()
+            }
         }
 
     useEffect(() => {
         if (show) {
-            let intervalID = setInterval(() => {
-                setToggleIcon(prevRotate => prevRotate !== 'rotate' ? 'rotate' : 'return')
-            }, 7000)
-            setIntervalId({ id: intervalID })
+            _handlerInterval()
+            return () => { clearInterval(interval.id) }
         }
     }, [show])
 
@@ -111,7 +142,7 @@ const Header = () => {
 
     return (
         <header className={`noselect ${show ? 'active' : ''} ${showExpand ? 'expand' : ''} `}>
-            <div className={`icon ${showExpand ? 'burger' : 'logo'} ${toggleIcon}`} onClick={() => { setShowExpand(_toggleExpand) }}>
+            <div className={`icon ${showExpand ? 'burger' : 'logo'} ${toggleIcon}`} onClick={() => { setShowExpand(_toggleExpand) }} onMouseEnter={_handlerEnter} onMouseLeave={_handlerLeave}>
                 <div className="top"></div>
                 <div className="middle"></div>
                 <div className="bottom"></div>
@@ -144,6 +175,7 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+            <div className="backDoor"></div>
         </header>
 
 

@@ -2,7 +2,7 @@
 
 @keyframes move-footer {
     from {
-        bottom: -250px;
+        bottom: -300px;
     }
     to {
         bottom: -125px;
@@ -39,7 +39,7 @@
     @media (max-width: $device-sm) {
         @keyframes move-footer {
             from {
-                bottom: -200px;
+                bottom: -250px;
             }
             to {
                 bottom: -100px;
@@ -64,10 +64,10 @@
         bottom: -125px;
     }
     100% {
-        bottom: -250px;
+        bottom: -300px;
     }
 }
 .footer.retract {
-    bottom: -250px;
+    bottom: -300px;
     animation: retract-footer .5s linear;
 }
