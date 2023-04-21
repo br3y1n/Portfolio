@@ -19,7 +19,7 @@
     "gatsby": "^2.23.12",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-sass": "^2.3.12",
-    "gatsby-source-contentful": "^2.3.29",
+    "gatsby-source-contentful": "^8.9.1",
     "gatsby-source-filesystem": "^2.3.22",
     "node-sass": "^4.14.1",
     "react": "^16.12.0",
